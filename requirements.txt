@@ -1,0 +1,14 @@
+# yacfg requirements for easy installation of all development and testing dependencies
+
+# Runtime Requirements
+amqcfg
+
+# Testing Requirements
+pytest
+flake8
+tox
+yamllint
+
+# Committing Requirements
+pre-commit
+
