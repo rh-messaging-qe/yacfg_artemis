@@ -4,7 +4,7 @@
 
 {% include 'libs/licenses/apache-2.0/xml.jinja2' %}
 
-<broker xmlns="http://activemq.org/schema">
+<broker xmlns="http://activemq.apache.org/schema">
 
 {% for jaas in bootstrap_xml.jaas_security %}
    <jaas-security domain="{{ jaas.domain }}"

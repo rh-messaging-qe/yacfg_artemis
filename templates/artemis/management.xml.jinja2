@@ -3,7 +3,7 @@
 
 {% include 'libs/licenses/apache-2.0/xml.jinja2' %}
 
-<management-context xmlns="http://activemq.org/schema">
+<management-context xmlns="http://activemq.apache.org/schema">
     {% if management_xml.connector is defined %}
     <connector
       {%- if management_xml.connector.host is defined %} connector-host="{{ management_xml.connector.host }}"
