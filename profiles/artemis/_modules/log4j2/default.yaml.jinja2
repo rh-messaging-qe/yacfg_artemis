@@ -1,0 +1,52 @@
+log4j2_config:
+  monitorInterval: 5
+  rootLogger: INFO, console, log_file
+  logger:
+    activemq:
+      name: org.apache.activemq
+      level: INFO
+    artemis_server:
+      name: org.apache.activemq.artemis.core.server
+      level: INFO
+    artemis_journal:
+      name: org.apache.activemq.artemis.journal
+      level: INFO
+    artemis_utils:
+      name: org.apache.activemq.artemis.utils
+      level: INFO
+    critical_analyzer:
+      name: org.apache.activemq.artemis.utils.critical
+      level: INFO
+    audit_base:
+      level: OFF
+      name: org.apache.activemq.audit.base
+      additivity: false
+    audit_resource:
+      level: OFF
+      name: org.apache.activemq.audit.resource
+      additivity: false
+    audit_message:
+      level: OFF
+      name: org.apache.activemq.audit.message
+      additivity: false
+    jetty:
+      name: org.eclipse.jetty
+      level: WARN
+    curator:
+      name: org.apache.curator
+      level: WARN
+    zookeeper:
+      name: org.apache.zookeeper
+      level: ERROR
+  appender:
+    console:
+      type: Console
+      name: console
+      layout:
+        type: PatternLayout
+        pattern: "%d %-5level [%logger] %msg%n"
+    log_file:
+      type: RollingFile
+      name: log_file
+      fileName: "${sys:artemis.instance}/log/artemis.log"
+      filePattern: "${sys:artemis.instance}/log/artemis.log.%d
