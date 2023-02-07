@@ -1,0 +1,41 @@
+# Log4J 2 configuration
+
+# Monitor config file every X seconds for updates
+monitorInterval = {{ log4j2_config.monitorInterval }}
+
+rootLogger = {{ log4j2_config.rootLogger }}
+
+{% for outer_key, outer_value in log4j2_config.items() %}
+  {% if outer_key == "logger" or outer_key == "appender" %}
+    {% for key, value in outer_value.items() %}
+      {% if outer_key == "logger" %}
+        logger.{{ key }}.
+      {% else %}
+        appender.{{ key }}.
+      {% endif %}
+      {% for k, v in value.items() %}
+        {{ k }}={{ v }}
+        {% if v is mapping %}
+          {% for k1, v1 in v.items() %}
+            {{ k1 }}={{ v1 }}
+            {% if v1 is mapping %}
+              {% for k2, v2 in v1.items() %}
+                {{ k2 }}={{ v2 }}
+                {% if v2 is mapping %}
+                  {% for k3, v3 in v2.items() %}
+                    {{ k3 }}={{ v3 }}
+                    {% if v3 is mapping %}
+                      {% for k4, v4 in v3.items() %}
+                        {{ k4 }}={{ v4 }}
+                      {% endfor %}
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+  {% endif %}
+{% endfor %}
