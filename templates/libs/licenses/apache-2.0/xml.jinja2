@@ -1,6 +1,8 @@
 {% if render.licenses is sameas true %}
 <!--
-{% include 'libs/licenses/apache-2.0/plaintext.jinja2' %}
+{% filter indent(width='  ~ ', first=True, blank=True) -%}
+    {% include 'libs/licenses/apache-2.0/plaintext.jinja2' %}
+{% endfilter %}
 
 -->
 {% endif %}

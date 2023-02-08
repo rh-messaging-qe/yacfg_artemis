@@ -6,10 +6,14 @@
     properties:
     - tcpSendBufferSize: 1048576
     - tcpReceiveBufferSize: 1048576
+    - amqpMinLargeMessageSize: 102400
     - protocols: CORE,AMQP,STOMP,HORNETQ,MQTT,OPENWIRE
     - useEpoll: true
     - amqpCredits: 1000
     - amqpLowCredits: 300
+    - amqpDuplicateDetection: true
+    - supportAdvisory: false
+    - suppressInternalManagementObjects: false
   - name: amqp
     protocol: tcp
     address: 0.0.0.0
@@ -21,6 +25,8 @@
     - useEpoll: true
     - amqpCredits: 1000
     - amqpLowCredits: 300
+    - amqpMinLargeMessageSize: 102400
+    - amqpDuplicateDetection: true
   - name: stomp
     protocol: tcp
     address: 0.0.0.0

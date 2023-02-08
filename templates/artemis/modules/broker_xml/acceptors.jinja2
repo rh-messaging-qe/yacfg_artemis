@@ -1,12 +1,14 @@
 {% if broker_xml.acceptors is defined %}
-    <!-- Acceptors configuration -->
-        <acceptors>
+      <acceptors>
+
     {% for acceptor in broker_xml.acceptors %}
-            <acceptor name="{{ acceptor.name }}">
+
+         <acceptor name="{{ acceptor.name }}">
             {{- url(acceptor.protocol, acceptor.address, acceptor.port) -}}
             {%- if acceptor.properties is defined -%}
                 ?
                 {%- for option in acceptor.properties -%}
+
                     {%- for key, value in option.items() -%}{{ key }}={{ mbool(value) }}
                         {%- if not loop.last -%};
                         {%- endif -%}
@@ -16,8 +18,10 @@
                 {%- endfor -%}
             {%- endif -%}
 
-            </acceptor>
+         </acceptor>
     {% endfor %}
-        </acceptors>
+
+      </acceptors>
+
 
 {% endif %}
