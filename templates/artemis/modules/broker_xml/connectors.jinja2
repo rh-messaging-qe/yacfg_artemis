@@ -1,8 +1,7 @@
 {% if broker_xml.connectors is defined %}
-    <!-- Connectors configuration -->
-        <connectors>
+      <connectors>
     {% for connector in broker_xml.connectors %}
-            <connector name="{{ connector.name }}">
+         <connector name="{{ connector.name }}">
             {{- url(connector.protocol, connector.address, connector.port) -}}
             {%- if connector.properties is defined -%}
                 ?
@@ -18,6 +17,6 @@
 
             </connector>
     {% endfor %}
-        </connectors>
+      </connectors>
 
 {% endif %}

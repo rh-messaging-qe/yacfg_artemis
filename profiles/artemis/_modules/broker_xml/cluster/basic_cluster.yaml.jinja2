@@ -6,25 +6,30 @@
       port: '{{ cluster_connector_port | default('61616') }}'
 
   cluster:
-    user: artemis_cluster_admin
-    password: cluster_secret_password
+    user: '{{ cluster_user }}'
+    password: '{{ cluster_password }}'
 
   broadcast_groups:
   - name: cluster-broadcast-group
+    bind_address: '{{ cluster_multicast_bind_address }}'
+    bind_port: '{{ cluster_multicast_bind_port }}'
     address: '{{ cluster_multicast_address }}'
     port: '{{ cluster_multicast_port }}'
-    broadcast_period: 5000
+    broadcast_period: '{{ cluster_broadcast_period | default(5000) }}'
     connector_ref: cluster-connector
 
   discovery_groups:
   - name: cluster-discovery-group
+    bind_address: '{{ cluster_multicast_bind_address }}'
     address: '{{ cluster_multicast_address }}'
     port: '{{ cluster_multicast_port }}'
-    refresh_timeout: 10000
+    refresh_timeout: {{ cluster_discovery_refresh_timeout | default(10000) }}
 
   cluster_connections:
     - name: artemis-cluster
       connector_ref: cluster-connector
+      check_period: '{{ cluster_check_period }}'
+      connection_ttl: '{{ cluster_connection_ttl }}'
       message_load_balancing: '{{ cluster_load_balancing }}'
-      max_hops: 1
+      max_hops: '{{ cluster_max_hops }}'
       discovery_group_ref: cluster-discovery-group

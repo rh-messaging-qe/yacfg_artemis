@@ -1,0 +1,12 @@
+  ha_policy:
+  - policy: replication
+    role: backup
+    properties:
+      manager:
+        properties: {{ ha_manager_properties }}
+      cluster_name: {{ ha_cluster_name | default('artemis-cluster') }}
+      group_name: {{ ha_group_name | default('artemis-cluster-group') }}
+      initial_replication_sync_timeout: {{ ha_initial_replication_sync_timeout }}
+      retry_replication_wait: {{ ha_retry_replication_wait }}
+      allow_failback: {{ ha_allow_failback }}
+

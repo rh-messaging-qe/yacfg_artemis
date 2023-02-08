@@ -1,11 +1,19 @@
 {% if policy.policy == 'replication' %}
-            {% if policy.role is not defined %}
-            <replication/>
-            {% else %}
-            <replication>
-                {% include 'modules/broker_xml/ha_policy/replication_master.jinja2' %}
-                {% include 'modules/broker_xml/ha_policy/replication_slave.jinja2' %}
-                {% include 'modules/broker_xml/ha_policy/replication_colocated.jinja2' %}
-            </replication>
-            {% endif %}
+         {% if policy.role is not defined %}
+         <replication/>
+         {% elif policy.role == 'primary' %}
+         <replication>
+           {% include 'modules/broker_xml/ha_policy/replication_primary.jinja2' %}
+         </replication>
+         {% elif policy.role == 'backup' %}
+         <replication>
+           {% include 'modules/broker_xml/ha_policy/replication_backup.jinja2' %}
+         </replication>
+         {% else %}
+         <replication>
+           {% include 'modules/broker_xml/ha_policy/replication_master.jinja2' %}
+           {% include 'modules/broker_xml/ha_policy/replication_slave.jinja2' %}
+           {% include 'modules/broker_xml/ha_policy/replication_colocated.jinja2' %}
+         </replication>
+       {% endif %}
 {% endif %}
