@@ -40,20 +40,20 @@ log4j2_config:
       name: org.apache.activemq.artemis.utils.critical
       level: '{{ log_level_utils_critical|default(log_level_all)|default('INFO') }}'
     audit_base:
+      value: '{{ log_level_audit_base|default(log_level_all)|default('OFF, audit_log_file') }}'
       name: org.apache.activemq.audit.base
-      level: '{{ log_level_audit_base|default(log_level_all)|default('OFF') }}'
       additivity: false
     audit_resource:
+      value: '{{ log_level_audit_resource|default(log_level_all)|default('OFF, audit_log_file') }}'
       name: org.apache.activemq.audit.resource
-      level: '{{ log_level_audit_resource|default(log_level_all)|default('OFF') }}'
       additivity: false
     audit_message:
+      value: '{{ log_level_audit_message|default(log_level_all)|default('OFF, audit_log_file') }}'
       name: org.apache.activemq.audit.message
-      level: '{{ log_level_audit_message|default(log_level_all)|default('ERROR') }}'
       additivity: false
     jetty:
       name: org.eclipse.jetty
-      level: '{{ log_level_jetty|default(log_level_all)|default('ERROR') }}'
+      level: '{{ log_level_jetty|default(log_level_all)|default('WARN') }}'
     curator:
       name: org.apache.curator
       level: '{{ log_level_curator|default(log_level_all)|default('WARN') }}'
@@ -71,4 +71,27 @@ log4j2_config:
       type: RollingFile
       name: log_file
       fileName: "${sys:artemis.instance}/log/artemis.log"
-      filePattern: "${sys:artemis.instance}/log/artemis.log.%d"
+      filePattern: "${sys:artemis.instance}/log/artemis.log.%d{yyyy-MM-dd}"
+      layout:
+        type: "PatternLayout"
+        pattern: "%d %-5level [%logger] %msg%n"
+      policies:
+        type: "Policies"
+        cron:
+          type: "CronTriggeringPolicy"
+          schedule: "0 0 0 * * ?"
+          evaluateOnStartup: true
+    audit_log_file:
+      type: RollingFile
+      name: audit_log_file
+      fileName: "${sys:artemis.instance}/log/audit.log"
+      filePattern: "${sys:artemis.instance}/log/audit.log.%d{yyyy-MM-dd}"
+      layout:
+        type: "PatternLayout"
+        pattern: "%d [AUDIT](%t) %msg%n"
+      policies:
+        type: "Policies"
+        cron:
+          type: "CronTriggeringPolicy"
+          schedule: "0 0 0 * * ?"
+          evaluateOnStartup: true
