@@ -1,3 +1,8 @@
+{% from 'libs/utils.jinja2' import mbool without context %}
+{% include 'libs/headers/properties_headers.jinja2' %}
+
+{% include 'libs/licenses/apache-2.0/properties.jinja2' %}
+
 # Log4J 2 configuration
 
 # Monitor config file every X seconds for updates
@@ -5,37 +10,57 @@ monitorInterval = {{ log4j2_config.monitorInterval }}
 
 rootLogger = {{ log4j2_config.rootLogger }}
 
-{% for outer_key, outer_value in log4j2_config.items() %}
-  {% if outer_key == "logger" or outer_key == "appender" %}
-    {% for key, value in outer_value.items() %}
-      {% if outer_key == "logger" %}
-        logger.{{ key }}.
-      {% else %}
-        appender.{{ key }}.
-      {% endif %}
-      {% for k, v in value.items() %}
-        {{ k }}={{ v }}
-        {% if v is mapping %}
-          {% for k1, v1 in v.items() %}
-            {{ k1 }}={{ v1 }}
-            {% if v1 is mapping %}
-              {% for k2, v2 in v1.items() %}
-                {{ k2 }}={{ v2 }}
-                {% if v2 is mapping %}
-                  {% for k3, v3 in v2.items() %}
-                    {{ k3 }}={{ v3 }}
-                    {% if v3 is mapping %}
-                      {% for k4, v4 in v3.items() %}
-                        {{ k4 }}={{ v4 }}
-                      {% endfor %}
-                    {% endif %}
-                  {% endfor %}
-                {% endif %}
-              {% endfor %}
-            {% endif %}
+{% for logger_key, logger in log4j2_config.logger.items() %}
+  {%- if "critical_analyzer" in logger_key -%}
+    {%- set comment = 
+    '# CriticalAnalyzer: If you have issues with the CriticalAnalyzer, setting this to TRACE would give\n'
+    '# you extra troubleshooting info, but do not use TRACE regularly as it would incur extra CPU usage.' 
+    -%}
+   {{- comment}}
+  {% elif "audit_base" in logger_key -%}
+   # Audit loggers: to enable change levels from OFF to INFO
+  {% elif "jetty" in logger_key -%}
+    # Jetty logger levels
+  {% elif ("curator" or "zookeeper") in logger_key -%}
+    # Quorum related logger levels
+  {% endif -%}
+  {%- for key, value in logger.items() -%}
+    {% if "value" in key -%}
+      logger.{{ logger_key }}={{ value }}
+    {% else -%}
+      logger.{{ logger_key }}.{{ key }}={{ value }}
+    {% endif %}
+  {% endfor %}
+
+{% endfor -%}
+
+
+{%- for appender_key, appender in log4j2_config.appender.items() -%}
+
+  {% if "console" in appender_key -%}
+    # Console appender
+  {% elif "log_file" in appender_key -%}
+    # Log file appender
+  {% elif "audit_log" in appender_key -%}
+    # Audit log file appender
+  {%- endif -%}
+
+  {%- for sub_appender_key, sub_appender_value in appender.items() %}
+
+    {%- if sub_appender_value is mapping %}
+      {%- for sub_sub_appender_key, sub_sub_appender_value in sub_appender_value.items() -%}
+        {%- if sub_sub_appender_value is mapping %}
+          {%- for sub_sub_sub_appender_key, sub_sub_sub_appender_value in sub_sub_appender_value.items() -%}
+            appender.{{ appender_key }}.{{ sub_appender_key }}.{{ sub_sub_appender_key }}.{{ sub_sub_sub_appender_key }}={{ sub_sub_sub_appender_value }}
           {% endfor %}
-        {% endif %}
+        {% else -%}
+          appender.{{ appender_key }}.{{sub_appender_key}}.{{ sub_sub_appender_key }}={{ sub_sub_appender_value }}
+        {% endif -%}
       {% endfor %}
-    {% endfor %}
-  {% endif %}
+    {% else -%}
+      appender.{{ appender_key }}.{{ sub_appender_key }}={{ sub_appender_value }}
+    {% endif -%}
+
+  {% endfor %}
+
 {% endfor %}
