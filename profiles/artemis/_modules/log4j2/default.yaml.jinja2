@@ -22,7 +22,7 @@
 
 log4j2_config:
   monitorInterval: 5
-  rootLogger: {{ log_level_root|default(log_level_all)|default('INFO') }}, console, log_file
+  rootLogger: '{{ log_level_root|default(log_level_all)|default('INFO') }}, console, log_file'
   logger:
     activemq:
       name: org.apache.activemq
@@ -71,4 +71,4 @@ log4j2_config:
       type: RollingFile
       name: log_file
       fileName: "${sys:artemis.instance}/log/artemis.log"
-      filePattern: "${sys:artemis.instance}/log/artemis.log.%d
+      filePattern: "${sys:artemis.instance}/log/artemis.log.%d"
