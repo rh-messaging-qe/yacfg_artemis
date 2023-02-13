@@ -1,7 +1,7 @@
 {% from 'libs/utils.jinja2' import reformat without context %}
 {% from 'libs/utils.jinja2' import mbool without context %}
 {# DON'T TOUCH THE INDENTATION !!! #}
-                    <queue name="{{ node.name }}"
+               <queue name="{{ node.name }}"
 
                         {#- header parameters -#}
                         {%- if node.max_consumers is defined -%}
@@ -20,15 +20,15 @@
 
                     {#- end header -#}
                     {%- if node.type == 'queue' -%}
-                            />
+                            {{ ' />' }}
                     {% elif node.type == 'queue_block' -%}
                             >
                     {% if node.durable is defined %}
                         <durable>{{ mbool(node.durable) }}</durable>
                     {%- endif %}
                     {% if node.filter is defined %}
-                        <filter string="{{ node.filter }}"/>
+                        <filter string="{{ node.filter }}" />
                     {%- endif %}
 
-                    </queue>
+               </queue>
                     {% endif %}

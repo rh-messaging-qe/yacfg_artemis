@@ -2,23 +2,29 @@ artemis_profile:
   home: '{{ broker_home }}'
   instance: '{{ broker_instance }}'
   data_dir: '{{ broker_instance }}/data'
+  etc_dir: '{{ broker_instance }}/etc'
+  oome_dump: '{{ broker_instance }}/log/oom_dump.hprof'
   instance_uri: 'file:{{ broker_instance }}'
   instance_etc_uri: 'file:{{ broker_instance }}/etc/'
+  hawtio_roles:
+    - 'amq'
   java_args:
+    - -XX:AutoBoxCacheMax=20000
     - -XX:+PrintClassHistogram
     - -XX:+UseG1GC
+    - -XX:+UseStringDeduplication
     - -Xms512M
     - -Xmx2G
-    - -Xloggc:gc.log
-    - -XX:+HeapDumpOnOutOfMemoryError
+    - -Dhawtio.disableProxy=true
     - -Dhawtio.realm=activemq
-    - -Dhawtio.offline="true"
-    - -Dhawtio.role=amq
+    - -Dhawtio.offline=true
     - -Dhawtio.rolePrincipalClasses=org.apache.activemq.artemis.spi.core.security.jaas.RolePrincipal
+    - -Dhawtio.http.strictTransportSecurity=max-age=31536000;includeSubDomains;preload
     - -Djolokia.policyLocation=${ARTEMIS_INSTANCE_ETC_URI}jolokia-access.xml
   java_args_run:
     - -Dcom.sun.management.jmxremote=true
     - -Dcom.sun.management.jmxremote.port=1099
-    - -Dcom.sun.management.jmxremote.rmi.port=1098
+    - -Dcom.sun.management.jmxremote.rmi.port=1099
+    - -Dcom.sun.management.jmxremote.local.only=false
     - -Dcom.sun.management.jmxremote.ssl=false
     - -Dcom.sun.management.jmxremote.authenticate=false

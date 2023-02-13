@@ -8,8 +8,6 @@
     address_full_policy: PAGE
     auto_create_queues: true
     auto_create_addresses: true
-    auto_create_jms_queues: true
-    auto_create_jms_topics: true
   - match: '#'
     dead_letter_address: DLQ
     expiry_address: ExpiryQueue
@@ -19,5 +17,9 @@
     address_full_policy: PAGE
     auto_create_queues: true
     auto_create_addresses: true
-    auto_create_jms_queues: true
-    auto_create_jms_topics: true
+    auto_delete_queues: false
+    auto_delete_addresses: false
+    max_size_messages: -1
+    page_size_bytes: 10M
+    max_read_page_messages: -1
+    max_read_page_bytes: 20M

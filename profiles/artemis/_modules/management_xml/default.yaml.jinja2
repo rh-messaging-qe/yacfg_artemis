@@ -32,6 +32,12 @@ management_xml:
       - method: 'set*'
         roles:
         - amq
+      - method: 'browse*'
+        roles:
+        - amq
+      - method: 'count*'
+        roles:
+        - amq
       - method: '*'
         roles:
         - amq

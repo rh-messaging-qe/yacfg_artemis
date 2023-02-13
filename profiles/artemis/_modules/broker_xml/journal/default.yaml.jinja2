@@ -5,5 +5,10 @@
     min_files: 2
     pool_files: 10
     file_size: 10M
-    buffer_timeout: 20000
+    buffer_timeout: 0
     max_io: 4096
+    datasync: true
+    device_block_size: 4096
+    paging_directory: data/paging
+    bindings_directory: data/bindings
+    large_messages_directory: data/large-messages
