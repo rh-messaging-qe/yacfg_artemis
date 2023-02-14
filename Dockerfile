@@ -1,4 +1,4 @@
-FROM quay.io/rhmessagingqe/yacfg:0.9.3
+FROM quay.io/rhmessagingqe/yacfg:latest
 COPY profiles /data/profiles
 COPY templates /data/templates
 
