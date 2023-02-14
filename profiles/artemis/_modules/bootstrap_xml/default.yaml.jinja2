@@ -1,5 +1,3 @@
-# _defaults:
-#   broker_instance: /opt/artemis-2.18.0-i0/
 
 bootstrap_xml:
   jaas_security:
@@ -13,13 +11,14 @@ bootstrap_xml:
       port: 8161
     path: web
     apps:
-      {% if bootstrap_apps is not defined %}
-      - url: 'activemq-branding'
-        war: 'activemq-branding.war'
-      - url: 'artemis-plugin'
-        war: 'artemis-plugin.war'
-      - url: 'console'
-        war: 'console.war'
-      {% else %}
       {{ bootstrap_apps }}
-      {% endif %}
+
+_defaults:
+  broker_instance: /opt/artemis-2.18.0-i0/
+  bootstrap_apps:
+    - url: activemq-branding
+      war: activemq-branding.war
+    - url: artemis-plugin
+      war: artemis-plugin.war
+    - url: console
+      war: console.war
