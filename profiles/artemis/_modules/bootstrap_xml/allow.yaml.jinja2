@@ -1,3 +1,12 @@
+_defaults: &bootstrap_defaults
+  bootstrap_apps:
+    - url: activemq-branding
+      war: activemq-branding.war
+    - url: artemis-plugin
+      war: artemis-plugin.war
+    - url: console
+      war: console.war
+
 bootstrap_xml:
   jaas_security:
     - domain: activemq
@@ -10,14 +19,4 @@ bootstrap_xml:
       port: 8161
     path: web
     apps:
-      {% if bootstrap_apps is not defined %}
-      - url: 'activemq-branding'
-        war: 'activemq-branding.war'
-      - url: 'artemis-plugin'
-        war: 'artemis-plugin.war'
-      - url: 'console'
-        war: 'console.war'
-      {% else %}
       {{ bootstrap_apps }}
-      {% endif %}
-

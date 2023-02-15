@@ -1,3 +1,14 @@
+_defaults: &bootstrap_defaults
+  web_adress: localhost
+  web_port: 8161
+  web_protocol: http
+  bootstrap_apps:
+    - url: activemq-branding
+      war: activemq-branding.war
+    - url: artemis-plugin
+      war: artemis-plugin.war
+    - url: console
+      war: console.war
 
 bootstrap_xml:
   jaas_security:
@@ -6,9 +17,9 @@ bootstrap_xml:
     configuration: 'file:{% if ":" in broker_instance %}/{% endif %}{{ broker_instance }}/etc/broker.xml'
   web:
     bind:
-      protocol: http
-      address: localhost
-      port: 8161
+      protocol: {{ web_protocol }}
+      address: {{ web_adress }}
+      port: {{ web_port }}
     path: web
     apps:
       {{ bootstrap_apps }}

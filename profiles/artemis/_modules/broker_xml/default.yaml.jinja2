@@ -1,0 +1,18 @@
+{% include 'artemis/_modules/broker_xml/security_settings/default.yaml.jinja2' %}
+
+{% include 'artemis/_modules/broker_xml/journal/default.yaml.jinja2' %}
+
+{% include 'artemis/_modules/broker_xml/critical_analyzer/default.yaml.jinja2' %}
+
+{% include 'artemis/_modules/broker_xml/acceptors/default.yaml.jinja2' %}
+
+{% include 'artemis/_modules/broker_xml/address_settings/default.yaml.jinja2' %}
+
+{% include 'artemis/_modules/broker_xml/addresses/default.yaml.jinja2' %}
+
+_defaults: &broker_xml_defaults
+  <<: *security_settings_defaults
+  <<: *critical_analyzer_defaults
+  # <<: *acceptors_defaults
+  # <<: *address_settings_defaults
+  # <<: *address_defaults

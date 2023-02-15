@@ -1,4 +1,7 @@
 jolokia_access:
   allow_origins:
-  - "*://localhost*"
+  - {{ jolokia_allow_origin }}
   strict_checking: true
+
+_defaults: &jolokia_access_defaults
+  jolokia_allow_origin: "*://localhost*" 

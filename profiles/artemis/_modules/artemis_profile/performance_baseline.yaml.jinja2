@@ -1,9 +1,6 @@
-# _defaults:
-#   broker_home: /opt/artemis-2.18.0
-#   broker_instance: /opt/artemis-2.18.0-i0/
-#   hostname: localhost
-#   java_xms: 4G
-#   java_xms: 4G
+_defaults: &artemis_profile_defaults
+  java_xms: 4G
+  java_xms: 4G
 
 artemis_profile:
   home: '{{ broker_home }}'
@@ -15,8 +12,8 @@ artemis_profile:
   - -XX:+PrintClassHistogram
   - -XX:+UseG1GC
   - -XX:+AggressiveOpts
-  - -Xms{{ java_xms|default('4G') }}
-  - -Xmx{{ java_xmx|default('4G') }}
+  - -Xms{{ java_xms }}
+  - -Xmx{{ java_xmx }}
   - -Dhawtio.realm=activemq
   - -Dhawtio.offline="true"
   - -Dhawtio.role=amq
@@ -25,6 +22,6 @@ artemis_profile:
   java_args_run:
   - -Dcom.sun.management.jmxremote=true
   - -Dcom.sun.management.jmxremote.port=1099
-  - -Djava.rmi.server.hostname={{ hostname|default('localhost') }}
+  - -Djava.rmi.server.hostname={{ hostname }}
   - -Dcom.sun.management.jmxremote.rmi.port=1098
   - -Dcom.sun.management.jmxremote.authenticate=false

@@ -1,65 +1,44 @@
-# _defaults:
-#  log_level_all: INFO x
-#  log_level_root: DEBUG x 
-#  log_level_activemq: INFO x
-#  log_level_server: INFO x
-#  log_level_audit_base: ERROR x
-#  log_level_audit_message: ERROR x
-#  log_level_audit_resource: ERROR x
-#  log_level_jetty: WARN x
-#  log_level_zookeeper: INFO x
-#  log_level_curator: INFO x
-
-## Not implemented
-#  log_level_journal: INFO
-#  log_level_utils: INFO
-#  log_level_utils_critical: INFO
-#  log_level_jms: INFO
-#  log_level_integration: INFO
-#  log_level_handler_console: DEBUG
-#  log_level_handler_file: DEBUG
-#  log_level_handler_audit_file: INFO
 
 log4j2_config:
   monitorInterval: 5
-  rootLogger: '{{ log_level_root|default(log_level_all)|default('INFO') }}, console, log_file'
+  rootLogger: '{{ log_level_root|default(log_level_all) }}, console, log_file'
   logger:
     activemq:
       name: org.apache.activemq
-      level: '{{ log_level_activemq|default(log_level_all)|default('INFO') }}'
+      level: '{{ log_level_activemq|default(log_level_all) }}'
     artemis_server:
       name: org.apache.activemq.artemis.core.server
-      level: '{{ log_level_server|default(log_level_all)|default('INFO') }}'
+      level: '{{ log_level_server|default(log_level_all) }}'
     artemis_journal:
       name: org.apache.activemq.artemis.journal
-      level: '{{ log_level_journal|default(log_level_all)|default('INFO') }}'
+      level: '{{ log_level_journal|default(log_level_all) }}'
     artemis_utils:
       name: org.apache.activemq.artemis.utils
-      level: '{{ log_level_utils|default(log_level_all)|default('INFO') }}'
+      level: '{{ log_level_utils|default(log_level_all) }}'
     critical_analyzer:
       name: org.apache.activemq.artemis.utils.critical
-      level: '{{ log_level_utils_critical|default(log_level_all)|default('INFO') }}'
+      level: '{{ log_level_utils_critical|default(log_level_all) }}'
     audit_base:
-      value: '{{ log_level_audit_base|default(log_level_all)|default('OFF, audit_log_file') }}'
+      value: '{{ log_level_audit_base|default(log_level_all) }}'
       name: org.apache.activemq.audit.base
       additivity: false
     audit_resource:
-      value: '{{ log_level_audit_resource|default(log_level_all)|default('OFF, audit_log_file') }}'
+      value: '{{ log_level_audit_resource|default(log_level_all) }}'
       name: org.apache.activemq.audit.resource
       additivity: false
     audit_message:
-      value: '{{ log_level_audit_message|default(log_level_all)|default('OFF, audit_log_file') }}'
+      value: '{{ log_level_audit_message|default(log_level_all) }}'
       name: org.apache.activemq.audit.message
       additivity: false
     jetty:
       name: org.eclipse.jetty
-      level: '{{ log_level_jetty|default(log_level_all)|default('WARN') }}'
+      level: '{{ log_level_jetty|default(log_level_all) }}'
     curator:
       name: org.apache.curator
-      level: '{{ log_level_curator|default(log_level_all)|default('WARN') }}'
+      level: '{{ log_level_curator|default(log_level_all) }}'
     zookeeper:
       name: org.apache.zookeeper
-      level: '{{ log_level_zookeeper|default(log_level_all)|default('ERROR') }}'
+      level: '{{ log_level_zookeeper|default(log_level_all) }}'
   appender:
     console:
       type: Console
@@ -95,3 +74,28 @@ log4j2_config:
           type: "CronTriggeringPolicy"
           schedule: "0 0 0 * * ?"
           evaluateOnStartup: true
+
+_defaults: &log4j2_defaults
+  log_level_all: INFO
+  log_level_root: INFO
+  log_level_journal: INFO
+  log_level_utils: INFO
+  log_level_utils_critical: INFO
+  log_level_activemq: INFO
+  log_level_server: INFO
+  log_level_audit_base: OFF, audit_log_file
+  log_level_audit_message: OFF, audit_log_file
+  log_level_audit_resource: OFF, audit_log_file
+  log_level_jetty: WARN
+  log_level_zookeeper: ERROR
+  log_level_curator: WARN
+
+## Not implemented
+#  log_level_journal: INFO
+#  log_level_utils: INFO
+#  log_level_utils_critical: INFO
+#  log_level_jms: INFO
+#  log_level_integration: INFO
+#  log_level_handler_console: DEBUG
+#  log_level_handler_file: DEBUG
+#  log_level_handler_audit_file: INFO

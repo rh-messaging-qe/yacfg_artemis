@@ -1,35 +1,12 @@
 ---
 
-_defaults:
-  broker_name: artemis
-  broker_home: /opt/artemis-2.18.0
-  broker_instance: /opt/artemis-2.18.0-i0
-
 render:
   generator_notice: True
   licenses: True
   template: artemis/
 
-broker_xml:
-  name: '{{ broker_name }}'
-
-{% include 'artemis/_modules/broker_xml/journal/default.yaml.jinja2' %}
-
-  disk_scan_period: 5000
-  max_disk_usage: 90
-  page_sync_timeout: 0
-  global_max_message: -1
-
-{% include 'artemis/_modules/broker_xml/critical_analyzer_default.yaml.jinja2' %}
-
-{% include 'artemis/_modules/broker_xml/acceptors/default.yaml.jinja2' %}
-
-{% include 'artemis/_modules/users_roles_security/admin_broker_security_settings.yaml.jinja2' %}
-
-{% include 'artemis/_modules/broker_xml/address_settings/default.yaml.jinja2' %}
-
-{% include 'artemis/_modules/broker_xml/addresses/default.yaml.jinja2' %}
-
+# broker.xml
+{% include 'artemis/_modules/broker_xml/default.yaml.jinja2' %}
 
 # artemis.profile
 {% include 'artemis/_modules/artemis_profile/default.yaml.jinja2' %}
@@ -51,3 +28,18 @@ broker_xml:
 
 # management.xml
 {% include 'artemis/_modules/management_xml/default.yaml.jinja2' %}
+
+_defaults: 
+  broker_name: artemis
+  broker_home: /opt/artemis-2.18.0
+  broker_instance: /opt/artemis-2.18.0-i0
+  hostname: localhost
+  <<: *broker_xml_defaults
+  <<: *bootstrap_defaults #
+  <<: *security_settings_defaults
+  # <<: *artemis_profile_defaults
+  # <<: *role_properties_defaults
+  <<: *jolokia_access_defaults
+  <<: *log4j2_defaults
+  # <<: *login_defaults
+  # <<: *management_defaults
