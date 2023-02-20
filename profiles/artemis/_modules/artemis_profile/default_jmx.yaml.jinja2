@@ -22,8 +22,6 @@ artemis_profile:
     - -Dhawtio.http.strictTransportSecurity=max-age=31536000;includeSubDomains;preload
     - -Djolokia.policyLocation=${ARTEMIS_INSTANCE_ETC_URI}jolokia-access.xml
   java_args_run:
-    - -Dcom.sun.management.jmxremote=true
-    - -Dcom.sun.management.jmxremote.port=1099
     - -Dcom.sun.management.jmxremote.rmi.port=1099
     - -Dcom.sun.management.jmxremote.local.only=false
     - -Dcom.sun.management.jmxremote.ssl=false

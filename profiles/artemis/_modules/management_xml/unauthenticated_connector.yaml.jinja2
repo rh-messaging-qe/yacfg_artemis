@@ -1,0 +1,47 @@
+management_xml:
+  connector:
+    host: 0.0.0.0
+    port: 1099
+    authenticator_type: NONE
+  whitelist:
+  - domain: '*'
+  default_access:
+    - method: 'list*'
+      roles:
+      - amq
+    - method: 'get*'
+      roles:
+      - amq
+    - method: 'is*'
+      roles:
+      - amq
+    - method: 'set*'
+      roles:
+      - amq
+    - method: '*'
+      roles:
+      - amq
+  role_access:
+    - domain: org.apache.activemq.artemis
+      access:
+      - method: 'list*'
+        roles:
+        - amq
+      - method: 'get*'
+        roles:
+        - amq
+      - method: 'is*'
+        roles:
+        - amq
+      - method: 'set*'
+        roles:
+        - amq
+      - method: 'browse*'
+        roles:
+        - amq
+      - method: 'count*'
+        roles:
+        - amq
+      - method: '*'
+        roles:
+        - amq
