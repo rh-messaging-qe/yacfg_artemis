@@ -18,21 +18,16 @@
             <max-size-bytes>{{ address_setting.max_size_bytes|overridevalue(address_setting.max_size_bytes) }}</max-size-bytes>
             {% endif %}
             {% if address_setting.max_size_messages is defined %}
-
             <max-size-messages>{{ address_setting.max_size_messages|overridevalue(address_setting.max_size_messages) }}</max-size-messages>
             {% endif %}
             {% if address_setting.page_size_bytes is defined %}
-
             <page-size-bytes>{{ address_setting.page_size_bytes|overridevalue(address_setting.page_size_bytes) }}</page-size-bytes>
             {% endif %}
             {% if address_setting.max_read_page_messages is defined %}
-
             <max-read-page-messages>{{ address_setting.max_read_page_messages|overridevalue(address_setting.max_read_page_messages) }}</max-read-page-messages>
             {% endif %}
             {% if address_setting.max_read_page_bytes is defined %}
-
             <max-read-page-bytes>{{ address_setting.max_read_page_bytes|overridevalue(address_setting.max_read_page_bytes) }}</max-read-page-bytes>
-
             {% endif %}
             {% if address_setting.message_counter_history_day_limit is defined %}
             <message-counter-history-day-limit>{{ address_setting.message_counter_history_day_limit }}</message-counter-history-day-limit>
