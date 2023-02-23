@@ -184,9 +184,19 @@
   {% if address_setting.default_exclusive_queue is defined %}
     default_exclusive_queue: {{ address_setting.default_exclusive_queue }}
   {% endif %}
+  {% if address_setting.max_size_messages is defined %}
+    max_size_messages: {{ address_setting.max_size_messages }}
+  {% endif %}
   {% if address_setting.page_size_bytes is defined %}
     page_size_bytes: {{ address_setting.page_size_bytes }}
   {% endif %}
+  {% if address_setting.max_read_page_messages is defined %}
+    max_read_page_messages: {{ address_setting.max_read_page_messages }}
+  {% endif %}
+  {% if address_setting.max_read_page_bytes is defined %}
+    max_read_page_bytes: {{ address_setting.max_read_page_bytes }}
+  {% endif %}
+
   {% if address_setting.slow_consumer_threshold_measurement_unit is defined %}
     slow_consumer_threshold_measurement_unit: {{ address_setting.slow_consumer_threshold_measurement_unit }}
   {% endif %}
