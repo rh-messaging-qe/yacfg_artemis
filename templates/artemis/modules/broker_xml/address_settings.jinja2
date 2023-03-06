@@ -29,6 +29,15 @@
             {% if address_setting.max_read_page_bytes is defined %}
             <max-read-page-bytes>{{ address_setting.max_read_page_bytes|overridevalue(address_setting.max_read_page_bytes) }}</max-read-page-bytes>
             {% endif %}
+            {% if address_setting.page_limit_bytes is defined %}
+            <page-limit-bytes>{{ address_setting.page_limit_bytes|overridevalue(address_setting.page_limit_bytes) }}</page-limit-bytes>
+            {% endif %}
+            {% if address_setting.page_limit_messages is defined %}
+            <page-limit-messages>{{ address_setting.page_limit_messages|overridevalue(address_setting.page_limit_messages) }}</page-limit-messages>
+            {% endif %}
+            {% if address_setting.page_full_policy is defined %}
+            <page-full-policy>{{ address_setting.page_full_policy|overridevalue(address_setting.page_full_policy) }}</page-full-policy>
+            {% endif %}
             {% if address_setting.message_counter_history_day_limit is defined %}
             <message-counter-history-day-limit>{{ address_setting.message_counter_history_day_limit }}</message-counter-history-day-limit>
             {% endif %}

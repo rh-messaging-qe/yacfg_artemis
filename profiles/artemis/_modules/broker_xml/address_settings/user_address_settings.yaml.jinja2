@@ -196,7 +196,15 @@
   {% if address_setting.max_read_page_bytes is defined %}
     max_read_page_bytes: {{ address_setting.max_read_page_bytes }}
   {% endif %}
-
+  {% if address_setting.page_limit_bytes is defined %}
+    page_limit_bytes: {{ address_setting.page_limit_bytes }}
+  {% endif %}
+  {% if address_setting.page_limit_messages is defined %}
+    page_limit_messages: {{ address_setting.page_limit_messages }}
+  {% endif %}
+  {% if address_setting.page_full_policy is defined %}
+    page_full_policy: {{ address_setting.page_full_policy }}
+  {% endif %}
   {% if address_setting.slow_consumer_threshold_measurement_unit is defined %}
     slow_consumer_threshold_measurement_unit: {{ address_setting.slow_consumer_threshold_measurement_unit }}
   {% endif %}
@@ -206,6 +214,5 @@
   {% if address_setting.enable_ingress_timestamp is defined %}
     enable_ingress_timestamp: {{ address_setting.enable_ingress_timestamp }}
   {% endif %}
-
   {% endfor %}
 {% endif %}
