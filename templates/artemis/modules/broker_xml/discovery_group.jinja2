@@ -2,23 +2,29 @@
       <discovery-groups>
       {% for group in broker_xml.discovery_groups %}
          <discovery-group name="{{ group.name }}">
-            {% if group.bind_address is defined %}
-            <local-bind-address>{{ group.bind_address }}</local-bind-address>
+            {% if group.group_address is defined %}
+            <group-address>{{ group.group_address }}</group-address>
             {% endif %}
-            {% if group.address is defined %}
-            <group-address>{{ group.address }}</group-address>
-            {% endif %}
-            {% if group.port is defined%}
-            <group-port>{{ group.port }}</group-port>
-            {% endif %}
-            {% if group.refresh_timeout is defined %}
-            <refresh-timeout>{{ group.refresh_timeout }}</refresh-timeout>
+            {% if group.group_port is defined%}
+            <group-port>{{ group.group_port }}</group-port>
             {% endif %}
             {% if group.jgroups_file is defined %}
             <jgroups-file>{{ group.jgroups_file  }}</jgroups-file>
             {% endif %}
             {% if group.jgroups_channel is defined %}
             <jgroups-channel>{{ group.jgroups_channel }}</jgroups-channel>
+            {% endif %}
+            {% if group.refresh_timeout is defined %}
+            <refresh-timeout>{{ group.refresh_timeout }}</refresh-timeout>
+            {% endif %}
+            {% if group.local_bind_address is defined %}
+            <local-bind-address>{{ group.local_bind_address }}</local-bind-address>
+            {% endif %}
+            {% if group.local_bind_port is defined %}
+            <local-bind-port>{{ group.local_bind_port }}</local-bind-port>
+            {% endif %}
+            {% if group.initial_wait_timeout is defined %}
+            <initial-wait-timeout>{{ group.initial_wait_timeout }}</initial-wait-timeout>
             {% endif %}
          </discovery-group>
       {% endfor %}

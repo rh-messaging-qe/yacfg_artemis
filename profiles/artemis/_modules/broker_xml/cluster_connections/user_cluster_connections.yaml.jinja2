@@ -1,0 +1,49 @@
+{% from '_libs/utils.jinja2' import mbool without context %}
+{% if user_cluster_connections is defined %}
+  cluster_connections:
+    {% for connection in user_cluster_connections %}
+    - name: '{{ connection.name }}'
+      connector_ref: '{{ connection.connector_ref }}'
+      {% if connection.check_period is defined %}
+      check_period: '{{ connection.check_period }}'
+      {% endif %}
+      {% if connection.connection_ttl is defined %}
+      connection_ttl: '{{ connection.connection_ttl }}'
+      {% endif %}
+      {% if connection.message_load_balancing is defined %}
+      message_load_balancing: '{{ connection.message_load_balancing }}'
+      {% endif %}
+      {% if connection.max_hops is defined %}
+      max_hops: '{{ connection.max_hops }}'
+      {% endif %}
+      {% if connection.discovery_group_ref is defined %}
+      discovery_group_ref: '{{ connection.discovery_group_ref }}'
+      {% endif %}
+      {% if connection.use_duplicate_detection is defined %}
+      use_duplicate_detection: '{{ mbool(connection.use_duplicate_detection) }}'
+      {% endif %}
+      {% if connection.retry_interval is defined %}
+      retry_interval: '{{ connection.retry_interval }}'
+      {% endif %}
+      {% if connection.retry_interval_multiplier is defined %}
+      retry_interval_multiplier: '{{ connection.retry_interval_multiplier }}'
+      {% endif %}
+      {% if connection.max_retry_interval is defined %}
+      max_retry_interval: '{{ connection.max_retry_interval }}'
+      {% endif %}
+      {% if connection.initial_connect_attempts is defined %}
+      initial_connect_attempts: '{{ connection.initial_connect_attempts }}'
+      {% endif %}
+      {% if connection.reconnect_attempts is defined %}
+      reconnect_attempts: '{{ connection.reconnect_attempts }}'
+      {% endif %}
+      {% if connection.static_connectors is defined %}
+      static_connectors:
+        {% for static_connector in connection.static_connectors %}
+        - '{{ static_connector }}'
+        {% endfor %}
+      {% endif %}
+    {% endfor %}
+{% endif %}
+
+      
