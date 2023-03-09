@@ -11,15 +11,6 @@
             {% if connection.connection_ttl is defined and connection.connection_ttl | length %}
             <connection-ttl>{{ connection.connection_ttl }}</connection-ttl>
             {% endif %}
-            {% if connection.message_load_balancing is defined and connection.message_load_balancing | length %}
-            <message-load-balancing>{{ connection.message_load_balancing }}</message-load-balancing>
-            {% endif %}
-            {% if connection.max_hops is defined and connection.max_hops | length %}
-            <max-hops>{{ connection.max_hops }}</max-hops>
-            {% endif %}
-            {% if connection.use_duplicate_detection is defined %}
-            <use-duplicate-detection>{{ mbool(connection.use_duplicate_detection) }}</use-duplicate-detection>
-            {% endif %}
             {% if connection.retry_interval is defined and connection.retry_interval | length %}
             <retry-interval>{{ connection.retry_interval }}</retry-interval>
             {% endif %}
@@ -34,6 +25,15 @@
             {% endif %}
             {% if connection.reconnect_attempts is defined and connection.reconnect_attempts | length %}
             <reconnect-attempts>{{ connection.reconnect_attempts }}</reconnect-attempts>
+            {% endif %}
+            {% if connection.use_duplicate_detection is defined %}
+            <use-duplicate-detection>{{ mbool(connection.use_duplicate_detection) }}</use-duplicate-detection>
+            {% endif %}
+            {% if connection.message_load_balancing is defined and connection.message_load_balancing | length %}
+            <message-load-balancing>{{ connection.message_load_balancing }}</message-load-balancing>
+            {% endif %}
+            {% if connection.max_hops is defined and connection.max_hops | length %}
+            <max-hops>{{ connection.max_hops }}</max-hops>
             {% endif %}
             {% if connection.static_connectors is defined %}
             <static-connectors>
