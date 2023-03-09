@@ -1,0 +1,10 @@
+{% if user_cluster is defined %}
+  cluster:
+    {% if user_cluster.user is defined %}
+    user: '{{ user_cluster.user }}'
+    {% endif %}
+    {% if user_cluster.password is defined %}
+    password: '{{ user_cluster.password }}'
+    {% endif %}
+{% endif %}
+

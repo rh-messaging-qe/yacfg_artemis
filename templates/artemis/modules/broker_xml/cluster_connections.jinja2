@@ -17,11 +17,23 @@
             {% if connection.max_hops is defined and connection.max_hops | length %}
             <max-hops>{{ connection.max_hops }}</max-hops>
             {% endif %}
-            {% if connection.discovery_group_ref is defined %}
-            <discovery-group-ref discovery-group-name="{{ connection.discovery_group_ref }}"/>
-            {% endif %}
             {% if connection.use_duplicate_detection is defined %}
             <use-duplicate-detection>{{ mbool(connection.use_duplicate_detection) }}</use-duplicate-detection>
+            {% endif %}
+            {% if connection.retry_interval is defined and connection.retry_interval | length %}
+            <retry-interval>{{ connection.retry_interval }}</retry-interval>
+            {% endif %}
+            {% if connection.retry_interval_multiplier is defined and connection.retry_interval_multiplier | length %}
+            <retry-interval-multiplier>{{ connection.retry_interval_multiplier }}</retry-interval-multiplier>
+            {% endif %}
+            {% if connection.max_retry_interval is defined and connection.max_retry_interval | length %}
+            <max-retry-interval>{{ connection.max_retry_interval }}</max-retry-interval>
+            {% endif %}
+            {% if connection.initial_connect_attempts is defined and connection.initial_connect_attempts | length %}
+            <initial-connect-attempts>{{ connection.initial_connect_attempts }}</initial-connect-attempts>
+            {% endif %}
+            {% if connection.reconnect_attempts is defined and connection.reconnect_attempts | length %}
+            <reconnect-attempts>{{ connection.reconnect_attempts }}</reconnect-attempts>
             {% endif %}
             {% if connection.static_connectors is defined %}
             <static-connectors>
@@ -29,6 +41,9 @@
                 <connector-ref>{{ connector }}</connector-ref>
                 {% endfor %}
             </static-connectors>
+            {% endif %}
+            {% if connection.discovery_group_ref is defined %}
+            <discovery-group-ref discovery-group-name="{{ connection.discovery_group_ref }}"/>
             {% endif %}
          </cluster-connection>
       {% endfor %}
