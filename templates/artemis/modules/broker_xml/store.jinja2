@@ -1,9 +1,8 @@
 {% if broker_xml.store is defined %}
-    <!-- Store configuration -->
-        <store>
-            {% for store in broker_xml.store %}
-                {% include 'modules/broker_xml/store/jdbc.jinja2' %}
-            {% endfor %}
-        </store>
+      <store>
+          {% for store in broker_xml.store %}
+              {% include 'modules/broker_xml/store/jdbc.jinja2' %}
+          {% endfor %}
+      </store>
 
 {% endif %}
