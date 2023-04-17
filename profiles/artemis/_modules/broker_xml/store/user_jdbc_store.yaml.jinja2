@@ -1,0 +1,37 @@
+{% if jdbc_connection_url is defined %}
+  store:
+    - type: jdbc
+      properties:
+        jdbc_driver_class_name: {{ jdbc_driver_class_name }}
+        jdbc_connection_url: {{ jdbc_connection_url }}
+        jdbc_connection_url_short: {{ db_jdbc_url | default('None') }}
+        jdbc_masked_username: {{ db_username_masked | default('None') }}
+        jdbc_masked_password: {{ db_password_masked | default('None') }}
+        {% if data_source_class_name is defined %}
+        data_source_class_name: {{ data_source_class_name }}
+        {% endif %}
+        {% if data_source_properties is defined %}
+        data_source_properties: {{ data_source_properties }}
+        {% endif %}
+        message_table_name: {{ message_table_name | default('MESSAGE_TABLE') }}
+        bindings_table_name: {{ bindings_table_name | default('BINDINGS_TABLE') }}
+        large_message_table_name: {{ large_message_table_name | default('LARGE_MESSAGES_TABLE') }}
+        page_store_table_name: {{ page_store_table_name | default('PAGE_TABLE') }}
+        node_manager_store_table_name: {{ node_manager_store_table_name | default('NODE_MANAGER_TABLE')}}
+        {% if jdbc_network_timeout is defined %}
+        jdbc_network_timeout: {{ jdbc_network_timeout }}
+        {% endif %}
+        {% if jdbc_lock_renew_period is defined %}
+        jdbc_lock_renew_period: {{ jdbc_lock_renew_period }}
+        {% endif %}
+        {% if jdbc_lock_expiration is defined %}
+        jdbc_lock_expiration: {{ jdbc_lock_expiration }}
+        {% endif %}
+        {% if jdbc_journal_sync_period is defined %}
+        jdbc_journal_sync_period: {{ jdbc_journal_sync_period }}
+        {% endif %}
+        {% if jdbc_allowed_time_diff is defined %}
+        jdbc_allowed_time_diff: {{ jdbc_allowed_time_diff }}
+        {% endif %}
+{% endif %}
+
