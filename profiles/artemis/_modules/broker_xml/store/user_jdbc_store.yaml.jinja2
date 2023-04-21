@@ -13,11 +13,11 @@
         {% if data_source_properties is defined %}
         data_source_properties: {{ data_source_properties }}
         {% endif %}
-        message_table_name: {{ message_table_name | default('MESSAGE_TABLE') }}
-        bindings_table_name: {{ bindings_table_name | default('BINDINGS_TABLE') }}
-        large_message_table_name: {{ large_message_table_name | default('LARGE_MESSAGES_TABLE') }}
-        page_store_table_name: {{ page_store_table_name | default('PAGE_TABLE') }}
-        node_manager_store_table_name: {{ node_manager_store_table_name | default('NODE_MANAGER_TABLE')}}
+        message_table_name: {{ message_table_name | default('MSG_TBL') }}
+        bindings_table_name: {{ bindings_table_name | default('BND_TBL') }}
+        large_message_table_name: {{ large_message_table_name | default('LG_MSG_TBL') }}
+        page_store_table_name: {{ page_store_table_name | default('PG_STR_TBL') }}
+        node_manager_store_table_name: {{ node_manager_store_table_name | default('ND_MGR_TBL')}}
         {% if jdbc_network_timeout is defined %}
         jdbc_network_timeout: {{ jdbc_network_timeout }}
         {% endif %}
