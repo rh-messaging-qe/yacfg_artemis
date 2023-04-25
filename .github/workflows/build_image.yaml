@@ -3,12 +3,16 @@ on:
   push:
     branches:
       - 'main'
-      - 'releases/**'
+      - 'refs/tags/releases/v*'
+    tags:
+      - 'releases/v**'
+  workflow_dispatch:
 
 env:
   IMAGE_NAME: yacfg_artemis
   IMAGE_REGISTRY: quay.io
   IMAGE_NAMESPACE: rhmessagingqe
+  ARCHS: amd64,arm64
 
 jobs:
   build:
@@ -21,13 +25,35 @@ jobs:
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
 
-    - name: Build Image
-      id: build-image
+    - name: Build Main Branch Image
+      if: github.ref == 'refs/heads/main'
+      id: build-main-branch-image
       uses: redhat-actions/buildah-build@v2
       with:
         image: ${{ env.IMAGE_NAME }}
-        tags: latest ${{ github.sha }} ${{ github.ref_name }}
-        archs: amd64, arm64
+        tags: |
+            latest
+            main
+            ${{ github.sha }}
+        archs: ${{ env.ARCHS }}
+        containerfiles: |
+          ./Dockerfile
+
+    - name: Get tag name
+      if: startsWith(github.ref, 'refs/tags/releases/v')
+      id: tag
+      run: echo "TAG_NAME=${GITHUB_REF#refs/tags/releases/v}" >> $GITHUB_OUTPUT
+
+    - name: Build Release Image
+      if: startsWith(github.ref, 'refs/tags/releases/v')
+      id: build-release-image
+      uses: redhat-actions/buildah-build@v2
+      with:
+        image: ${{ env.IMAGE_NAME }}
+        tags: |
+            ${{ github.sha }}
+            ${{ steps.tag.outputs.TAG_NAME }}
+        archs: ${{ env.ARCHS }}
         containerfiles: |
           ./Dockerfile
 
