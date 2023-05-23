@@ -1,0 +1,96 @@
+{% if user_ha is defined %}
+  ha_policy:
+  {% if user_ha.policy is defined and user_ha.policy == 'shared-store' %}
+    - policy: shared-store
+    {% if user_ha.role is defined and user_ha.role == 'master' %}
+      role: master
+      {% if user_ha.properties is defined %}
+      properties:
+        {% if user_ha.properties.failover_on_shutdown is defined %}
+        failover_on_shutdown: {{ user_ha.properties.failover_on_shutdown }}
+        {% endif %}
+        {% if user_ha.properties.wait_for_activation is defined %}
+        wait_for_activation: {{ user_ha.properties.wait_for_activation }}
+        {% endif %}
+      {% endif %}
+    {% endif %}
+    {% if user_ha.role is defined and user_ha.role == 'slave' %}
+      role: slave
+      {% if user_ha.properties is defined %}
+      properties:
+        {% if user_ha.properties.allow_failback is defined %}
+        allow_failback: {{ user_ha.properties.allow_failback }}
+        {% endif %}
+        {% if user_ha.properties.failover_on_shutdown is defined %}
+        failover_on_shutdown: {{ user_ha.properties.failover_on_shutdown }}
+        {% endif %}
+        {% if user_ha.properties.restart_backup is defined %}
+        restart_backup: {{ user_ha.properties.restart_backup }}
+        {% endif %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+  {% if user_ha.policy is defined and user_ha.policy == 'replication' %}
+    - policy: replication
+    {% if user_ha.role is defined and user_ha.role == 'primary' %}
+      role: primary
+      {% if user_ha.properties is defined %}
+      properties:
+        {% if user_ha.properties.cluster_name is defined %}
+        cluster_name: {{ user_ha.properties.cluster_name }}
+        {% endif %}
+        {% if user_ha.properties.group_name is defined %}
+        group_name: {{ user_ha.properties.group_name }}
+        {% endif %}
+        {% if user_ha.properties.coordination_id is defined %}
+        coordination_id: {{ user_ha.properties.coordination_id }}
+        {% endif %}
+        {% if user_ha.properties.initial_replication_sync_timeout is defined %}
+        initial_replication_sync_timeout: {{ user_ha.properties.initial_replication_sync_timeout }}
+        {% endif %}
+        {% if user_ha.properties.retry_replication_wait is defined %}
+        retry_replication_wait: {{ user_ha.properties.retry_replication_wait }}
+        {% endif %}
+        {% if user_ha.properties.manager is defined %}
+        manager:
+          {% if user_ha.properties.manager.class_name is defined %}
+          class_name: {{ user_ha.properties.manager.class_name }}
+          {% endif %}
+          {% if user_ha.properties.manager.properties is defined %}
+          properties: {{ user_ha.properties.manager.properties }}
+          {% endif %}
+        {% endif %}
+      {% endif %}
+    {% endif %}
+    {% if user_ha.role is defined and user_ha.role == 'backup' %}
+      role: backup
+      {% if user_ha.properties is defined %}
+      properties:
+        {% if user_ha.properties.cluster_name is defined %}
+        cluster_name: {{ user_ha.properties.cluster_name }}
+        {% endif %}
+        {% if user_ha.properties.group_name is defined %}
+        group_name: {{ user_ha.properties.group_name }}
+        {% endif %}
+        {% if user_ha.properties.initial_replication_sync_timeout is defined %}
+        initial_replication_sync_timeout: {{ user_ha.properties.initial_replication_sync_timeout }}
+        {% endif %}
+        {% if user_ha.properties.retry_replication_wait is defined %}
+        retry_replication_wait: {{ user_ha.properties.retry_replication_wait }}
+        {% endif %}
+        {% if user_ha.properties.allow_failback is defined %}
+        allow_failback: {{ user_ha.properties.allow_failback }}
+        {% endif %}
+        {% if user_ha.properties.manager is defined %}
+        manager:
+          {% if user_ha.properties.manager.class_name is defined %}
+          class_name: {{ user_ha.properties.manager.class_name }}
+          {% endif %}
+          {% if user_ha.properties.manager.properties is defined %}
+          properties: {{ user_ha.properties.manager.properties }}
+          {% endif %}
+        {% endif %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+{% endif %}
