@@ -3,7 +3,7 @@
     {% for connector in user_connectors %}
     - name: '{{ connector.name }}'
       protocol: '{{ connector.protocol |  default('tcp') }}'
-      address: '{{ connector.address |  default('0.0.0.0') }}'
+      address: '{{ connector.address | default(broker_name) }}'
       port: '{{ connector.port |  default('61616') }}'
       {% if connector.properties is defined %}
       properties:

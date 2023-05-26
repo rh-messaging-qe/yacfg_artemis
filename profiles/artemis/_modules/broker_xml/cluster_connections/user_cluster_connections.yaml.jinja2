@@ -4,12 +4,8 @@
     {% for connection in user_cluster_connections %}
     - name: '{{ connection.name }}'
       connector_ref: '{{ connection.connector_ref }}'
-      {% if connection.check_period is defined %}
-      check_period: '{{ connection.check_period }}'
-      {% endif %}
-      {% if connection.connection_ttl is defined %}
-      connection_ttl: '{{ connection.connection_ttl }}'
-      {% endif %}
+      check_period: '{{ connection.check_period | default('1000') }}'
+      connection_ttl: '{{ connection.connection_ttl | default('5000') }}'
       {% if connection.message_load_balancing is defined %}
       message_load_balancing: '{{ connection.message_load_balancing }}'
       {% endif %}

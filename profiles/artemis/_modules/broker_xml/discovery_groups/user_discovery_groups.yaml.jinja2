@@ -2,27 +2,17 @@
   discovery_groups:
     {% for discovery_group in user_discovery_groups %}
     - name: '{{ discovery_group.name }}'
-      {% if discovery_group.group_address is defined %}
-      group_address: '{{ discovery_group.group_address }}'
-      {% endif %}
-      {% if discovery_group.group_port is defined %}
-      group_port: '{{ discovery_group.group_port }}'
-      {% endif %}
+      group_address: '{{ discovery_group.group_address | default('231.7.7.7') }}'
+      group_port: '{{ discovery_group.group_port | default('9876') }}'
       {% if discovery_group.jgroups_file is defined %}
       jgroups_file: '{{ discovery_group.jgroups_file }}'
       {% endif %}
       {% if discovery_group.jgroups_channel is defined %}
       jgroups_channel: '{{ discovery_group.jgroups_channel }}'
       {% endif %}
-      {% if discovery_group.refresh_timeout is defined %}
-      refresh_timeout: '{{ discovery_group.refresh_timeout }}'
-      {% endif %}
-      {% if discovery_group.local_bind_address is defined %}
-      local_bind_address: '{{ discovery_group.local_bind_address }}'
-      {% endif %}
-      {% if discovery_group.local_bind_port is defined %}
-      local_bind_port: '{{ discovery_group.local_bind_port }}'
-      {% endif %}
+      refresh_timeout: '{{ discovery_group.refresh_timeout | default('10000') }}'
+      local_bind_address: '{{ discovery_group.local_bind_address | default(broker_name) }}'
+      local_bind_port: '{{ discovery_group.local_bind_port | default('-1') }}'
       {% if discovery_group.initial_wait_timeout is defined %}
       initial_wait_timeout: '{{ discovery_group.initial_wait_timeout }}'
       {% endif %}
