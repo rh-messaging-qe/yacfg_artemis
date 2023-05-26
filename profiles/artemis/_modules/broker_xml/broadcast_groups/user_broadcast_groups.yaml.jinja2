@@ -2,21 +2,11 @@
   broadcast_groups:
     {% for broadcast_group in user_broadcast_groups %}
     - name: '{{ broadcast_group.name }}'
-      {% if broadcast_group.local_bind_address is defined %}
-      local_bind_address: '{{ broadcast_group.local_bind_address }}'
-      {% endif %}
-      {% if broadcast_group.local_bind_port is defined %}
-      local_bind_port: '{{ broadcast_group.local_bind_port }}'
-      {% endif %}
-      {% if broadcast_group.group_address is defined %}
-      group_address: '{{ broadcast_group.group_address }}'
-      {% endif %}
-      {% if broadcast_group.group_port is defined %}
-      group_port: '{{ broadcast_group.group_port }}'
-      {% endif %}
-      {% if broadcast_group.broadcast_period is defined %}
-      broadcast_period: '{{ broadcast_group.broadcast_period }}'
-      {% endif %}
+      local_bind_address: '{{ broadcast_group.local_bind_address | default(broker_name) }}'
+      local_bind_port: '{{ broadcast_group.local_bind_port | default('-1') }}'
+      group_address: '{{ broadcast_group.group_address | default('231.7.7.7') }}'
+      group_port: '{{ broadcast_group.group_port | default('9876') }}'
+      broadcast_period: '{{ broadcast_group.broadcast_period | default('2000') }}'
       {% if broadcast_group.jgroups_file is defined %}
       jgroups_file: '{{ broadcast_group.jgroups_file }}'
       {% endif %}
