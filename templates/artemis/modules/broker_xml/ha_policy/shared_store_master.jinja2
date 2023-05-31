@@ -3,7 +3,7 @@
                 <master/>
             {% else %}
                 <master>
-                    {% if policy.properties.failover_on_server_shutdown is defined %}
+                    {% if policy.properties.failover_on_shutdown is defined %}
                     <failover-on-shutdown>{{ mbool(policy.properties.failover_on_shutdown) }}</failover-on-shutdown>
                     {% endif %}
                     {% if policy.properties.wait_for_activation is defined %}
