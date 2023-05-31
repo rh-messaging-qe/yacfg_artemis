@@ -1,0 +1,90 @@
+  journal:
+    {% if user_journal is defined and user_journal.persistence_enabled is defined %}
+    persistence_enabled: '{{ user_journal.persistence_enabled }}'
+    {% else %}
+    persistence_enabled: 'true'
+    {% endif %}
+    {% if user_journal is defined and user_journal.type is defined %}
+    type: '{{ user_journal.type }}'
+    {% else %}
+    type: 'ASYNCIO'
+    {% endif %}
+    {% if user_journal is defined and user_journal.base_data_dir is defined %}
+    base_data_dir: '{{ user_journal.base_data_dir }}'
+    {% else %}
+    base_data_dir: '{{ journal_base_data_dir }}'
+    {% endif %}
+    {% if user_journal is defined and user_journal.journal_dir is defined %}
+    directory: '{{ user_journal.journal_dir }}'
+    {% else %}
+    directory: '{{ journal_base_data_dir ~ '/journal' }}'
+    {% endif %}
+    {% if user_journal is defined and user_journal.paging_dir is defined %}
+    paging_directory: '{{ user_journal.paging_dir }}'
+    {% else %}
+    paging_directory: '{{ journal_base_data_dir ~ '/paging' }}'
+    {% endif %}
+    {% if user_journal is defined and user_journal.bindings_dir is defined %}
+    bindings_directory: '{{ user_journal.bindings_dir }}'
+    {% else %}
+    bindings_directory: '{{ journal_base_data_dir ~ '/bindings' }}'
+    {% endif %}
+    {% if user_journal is defined and user_journal.large_messages_dir is defined %}
+    large_messages_directory: '{{ user_journal.large_messages_dir }}'
+    {% else %}
+    large_messages_directory: '{{ journal_base_data_dir ~ '/large-messages' }}'
+    {% endif %}
+    {% if user_journal is defined and user_journal.create_dir is defined %}
+    create_dir: '{{ user_journal.create_dir }}'
+    {% endif %}
+    {% if user_journal is defined and user_journal.sync_transactional is defined %}
+    sync_transactional: '{{ user_journal.sync_transactional }}'
+    {% endif %}
+    {% if user_journal is defined and user_journal.sync_non_transactional is defined %}
+    sync_non_transactional: '{{ user_journal.sync_non_transactional }}'
+    {% endif %}
+    {% if user_journal is defined and user_journal.datasync is defined %}
+    datasync: '{{ user_journal.datasync }}'
+    {% else %}
+    datasync: 'true'
+    {% endif %}
+    {% if user_journal is defined and user_journal.min_files is defined %}
+    min_files: '{{ user_journal.min_files }}'
+    {% else %}
+    min_files: 2
+    {% endif %}
+    {% if user_journal is defined and user_journal.pool_files is defined %}
+    pool_files: '{{ user_journal.pool_files }}'
+    {% else %}
+    pool_files: 10
+    {% endif %}
+    {% if user_journal is defined and user_journal.device_block_size is defined %}
+    device_block_size: '{{ user_journal.device_block_size }}'
+    {% else %}
+    device_block_size: 4096
+    {% endif %}
+    {% if user_journal is defined and user_journal.file_size is defined %}
+    file_size: '{{ user_journal.file_size }}'
+    {% else %}
+    file_size: '10M'
+    {% endif %}
+    {% if user_journal is defined and user_journal.buffer_timeout is defined %}
+    buffer_timeout: '{{ user_journal.buffer_timeout }}'
+    {% else %}
+    buffer_timeout: 0
+    {% endif %}
+    {% if user_journal is defined and user_journal.buffer_size is defined %}
+    buffer_size: '{{ user_journal.buffer_size }}'
+    {% endif %}
+    {% if user_journal is defined and user_journal.compact_min_files is defined %}
+    compact_min_files: '{{ user_journal.compact_min_files }}'
+    {% endif %}
+    {% if user_journal is defined and user_journal.compact_percentage is defined %}
+    compact_percentage: '{{ user_journal.compact_percentage }}'
+    {% endif %}
+    {% if user_journal is defined and user_journal.max_io is defined %}
+    max_io: '{{ user_journal.max_io }}'
+    {% else %}
+    max_io: 4096
+    {% endif %}
+
