@@ -6,6 +6,9 @@
       connector_ref: '{{ connection.connector_ref }}'
       check_period: '{{ connection.check_period | default('1000') }}'
       connection_ttl: '{{ connection.connection_ttl | default('5000') }}'
+      {% if connection.call_timeout is defined %}
+      call_timeout: '{{ connection.call_timeout }}'
+      {% endif %}      
       {% if connection.message_load_balancing is defined %}
       message_load_balancing: '{{ connection.message_load_balancing }}'
       {% endif %}
