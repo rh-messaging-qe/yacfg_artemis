@@ -11,6 +11,9 @@
             {% if connection.connection_ttl is defined and connection.connection_ttl | length %}
             <connection-ttl>{{ connection.connection_ttl }}</connection-ttl>
             {% endif %}
+            {% if connection.call_timeout is defined and connection.call_timeout | length %}
+            <call-timeout>{{ connection.call_timeout }}</call-timeout>
+            {% endif %}
             {% if connection.retry_interval is defined and connection.retry_interval | length %}
             <retry-interval>{{ connection.retry_interval }}</retry-interval>
             {% endif %}

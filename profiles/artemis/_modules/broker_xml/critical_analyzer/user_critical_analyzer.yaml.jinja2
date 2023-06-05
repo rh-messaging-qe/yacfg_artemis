@@ -1,0 +1,21 @@
+  critical_analyzer:
+    {% if user_critical_analyzer is defined and user_critical_analyzer.enabled is defined %}
+    enabled: '{{ user_critical_analyzer.enabled }}'
+    {% else %}
+    enabled: 'true'
+    {% endif%}
+    {% if user_critical_analyzer is defined and user_critical_analyzer.timeout is defined %}
+    timeout: '{{ user_critical_analyzer.timeout }}'
+    {% else %}
+    timeout: 120000
+    {% endif%}
+    {% if user_critical_analyzer is defined and user_critical_analyzer.check_period is defined %}
+    check_period: '{{ user_critical_analyzer.check_period }}'
+    {% else %}
+    check_period: 60000
+    {% endif%}
+    {% if user_critical_analyzer is defined and user_critical_analyzer.policy is defined %}
+    policy: '{{ user_critical_analyzer.policy }}'
+    {% else %}
+    policy: 'HALT'
+    {% endif%}
