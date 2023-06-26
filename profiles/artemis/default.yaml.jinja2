@@ -4,6 +4,9 @@ _defaults:
   broker_name: artemis
   broker_home: /opt/artemis-2.18.0
   broker_instance: /opt/artemis-2.18.0-i0
+  boostrap_xml_bindings:
+    - name: artemis
+      uri: http://0.0.0.0:8161
 
 render:
   generator_notice: True

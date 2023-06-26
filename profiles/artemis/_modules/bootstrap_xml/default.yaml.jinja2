@@ -7,10 +7,9 @@ bootstrap_xml:
   server:
     configuration: 'file:{% if ":" in broker_instance %}/{% endif %}{{ broker_instance }}/etc/broker.xml'
   web:
-    bind:
-      - name: 'artemis'
-        uri: http://0.0.0.0:8161
     path: web
+    bindings: {{ boostrap_xml_bindings}}
+    rootRedirectLocation: '{% if bootstrap_xml_rootRedirectLocation is not defined %}console{% else %}{{ bootstrap_xml_rootRedirectLocation }}{% endif %}'
     apps:
       {% if bootstrap_apps is not defined %}
       - url: 'activemq-branding'
