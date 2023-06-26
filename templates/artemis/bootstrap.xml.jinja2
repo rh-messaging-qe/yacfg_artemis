@@ -15,13 +15,25 @@
 
    <server configuration="{{ bootstrap_xml.server.configuration }}"/>
 
-   {% set protocol = bootstrap_xml.web.bind.protocol %}
-   {% set address = bootstrap_xml.web.bind.address %}
-   {% set port = bootstrap_xml.web.bind.port %}
-   <web path="{{ bootstrap_xml.web.path }}" rootRedirectLocation="console">
-       <binding uri="{{- url(protocol, address, port) -}}">
+   <web path="{{ bootstrap_xml.web.path }}" rootRedirectLocation="{{ bootstrap_xml.web.rootRedirectLocation }}">
+       {% for binding in bootstrap_xml.web.bindings %}
+       <binding
+           {% for attribute_key, attribute_value in  binding.items() %}
+               {% if attribute_key == 'uri' %}
+            uri="{{ attribute_value }}"
+               {% else %}
+            {{ attribute_key }}="{{ attribute_value }}"
+               {% endif %}
+           {% endfor %}
+       >
+       {% endfor %}
+
        {% for app in bootstrap_xml.web.apps %}
+           {% if app.name is defined %}
+           <app name="{{ app.name }}" url="{{ app.url }}" war="{{ app.war }}"/>
+           {% else %}
            <app url="{{ app.url }}" war="{{ app.war }}"/>
+           {% endif %}
        {% endfor %}
        </binding>
    </web>

@@ -5,9 +5,11 @@ bootstrap_xml:
     configuration: 'file:{% if ":" in broker_instance %}/{% endif %}{{ broker_instance }}/etc/broker.xml'
   web:
     bind:
-      protocol: http
-      address: 0.0.0.0
-      port: 8161
+      - name: artemis
+        uri: https://localhost:8161
+        sniHostCheck: false
+        sniRequired: false
+        clientAuth: false
     path: web
     apps:
       {% if bootstrap_apps is not defined %}
