@@ -4,12 +4,8 @@ bootstrap_xml:
   server:
     configuration: 'file:{% if ":" in broker_instance %}/{% endif %}{{ broker_instance }}/etc/broker.xml'
   web:
-    bind:
-      - name: artemis
-        uri: https://localhost:8161
-        sniHostCheck: false
-        sniRequired: false
-        clientAuth: false
+    bindings: {{ boostrap_xml_bindings}}
+    rootRedirectLocation: '{% if bootstrap_xml_rootRedirectLocation is not defined %}console{% else %}{{ bootstrap_xml_rootRedirectLocation }}{% endif %}'
     path: web
     apps:
       {% if bootstrap_apps is not defined %}
@@ -22,4 +18,3 @@ bootstrap_xml:
       {% else %}
       {{ bootstrap_apps }}
       {% endif %}
-
