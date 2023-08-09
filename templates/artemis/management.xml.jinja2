@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 {% include 'libs/headers/xml_header.jinja2' %}
 {% include 'libs/licenses/apache-2.0/xml.jinja2' %}
-<management-context xmlns="http://activemq.apache.org/schema">
+<management-context xmlns="http://activemq.org/schema">
     {% if management_xml.connector is defined %}
    <connector
       {%- if management_xml.connector.host is defined %} connector-host="{{ management_xml.connector.host }}"
