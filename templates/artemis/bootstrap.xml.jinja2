@@ -18,12 +18,10 @@
    {% set protocol = bootstrap_xml.web.bind.protocol %}
    {% set address = bootstrap_xml.web.bind.address %}
    {% set port = bootstrap_xml.web.bind.port %}
-   <web path="{{ bootstrap_xml.web.path }}">
-       <binding uri="{{- url(protocol, address, port) -}}">
+   <web bind="{{- url(protocol, address, port) -}}" path="{{ bootstrap_xml.web.path }}">
        {% for app in bootstrap_xml.web.apps %}
            <app url="{{ app.url }}" war="{{ app.war }}"/>
        {% endfor %}
-       </binding>
    </web>
 
 
