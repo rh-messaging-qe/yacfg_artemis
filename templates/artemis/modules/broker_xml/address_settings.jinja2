@@ -17,9 +17,6 @@
             {% if address_setting.max_size_bytes is defined %}
             <max-size-bytes>{{ address_setting.max_size_bytes|overridevalue(address_setting.max_size_bytes) }}</max-size-bytes>
             {% endif %}
-            {% if address_setting.max_size_messages is defined %}
-            <max-size-messages>{{ address_setting.max_size_messages|overridevalue(address_setting.max_size_messages) }}</max-size-messages>
-            {% endif %}
             {% if address_setting.page_size_bytes is defined %}
             <page-size-bytes>{{ address_setting.page_size_bytes|overridevalue(address_setting.page_size_bytes) }}</page-size-bytes>
             {% endif %}

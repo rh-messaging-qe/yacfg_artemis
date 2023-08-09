@@ -33,10 +33,6 @@
       <global-max-size>{{ broker_xml.global_max_size }}</global-max-size>
 
         {% endif %}
-        {% if broker_xml.global_max_message is defined %}
-      <global-max-messages>{{ broker_xml.global_max_message }}</global-max-messages>
-
-        {% endif %}
         {% include 'modules/broker_xml/acceptors.jinja2' %}
         {% include 'modules/broker_xml/connectors.jinja2' %}
         {% include 'modules/broker_xml/cluster.jinja2' %}
