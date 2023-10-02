@@ -1,27 +1,3 @@
----
-
-_defaults:
-  broker_name: artemis
-  broker_home: /opt/artemis-2.18.0
-  broker_instance: /opt/artemis-2.18.0-i0
-
-render:
-  generator_notice: True
-  licenses: True
-  template: artemis/
-
-broker_xml:
-  name: '{{ broker_name }}'
-
-{% include 'artemis/_modules/broker_xml/journal/default.yaml.jinja2' %}
-
-  disk_scan_period: 5000
-  max_disk_usage: 90
-  page_sync_timeout: 0
-  global_max_message: -1
-
-{% include 'artemis/_modules/broker_xml/critical_analyzer/critical_analyzer_default.yaml.jinja2' %}
-
   acceptors:
     - name: artemis
       protocol: tcp
@@ -51,7 +27,8 @@ broker_xml:
       - amqpLowCredits: 300
       - amqpMinLargeMessageSize: 102400
       - amqpDuplicateDetection: true
-      - saslMechanisms: PLAIN
+      - saslMechanisms: SCRAM-SHA-512
+      - saslLoginConfigScope: amqp-sasl-scram
     - name: stomp
       protocol: tcp
       address: 0.0.0.0
@@ -79,31 +56,3 @@ broker_xml:
       - tcpReceiveBufferSize: 1048576
       - protocols: MQTT
       - useEpoll: true
-
-{% include 'artemis/_modules/users_roles_security/admin_broker_security_settings.yaml.jinja2' %}
-
-{% include 'artemis/_modules/broker_xml/address_settings/default.yaml.jinja2' %}
-
-{% include 'artemis/_modules/broker_xml/addresses/default.yaml.jinja2' %}
-
-
-# artemis.profile
-{% include 'artemis/_modules/artemis_profile/default.yaml.jinja2' %}
-
-# users and roles properties xml
-{% include 'artemis/_modules/users_roles_security/admin.yaml.jinja2' %}
-
-# bootstrap.xml
-{% include 'artemis/_modules/bootstrap_xml/default.yaml.jinja2' %}
-
-# jolokia-access.xml
-{% include 'artemis/_modules/jolokia_access/default.yaml.jinja2' %}
-
-# log4j2.properties
-{% include 'artemis/_modules/log4j2/default.yaml.jinja2' %}
-
-# login.config
-{% include 'artemis/_modules/login_config/user_login_modules.yaml.jinja2' %}
-
-# management.xml
-{% include 'artemis/_modules/management_xml/default.yaml.jinja2' %}

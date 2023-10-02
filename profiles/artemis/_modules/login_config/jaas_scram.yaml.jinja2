@@ -1,0 +1,22 @@
+login_config:
+  - name: activemq
+    modules:
+    - class_name: org.apache.activemq.artemis.spi.core.security.jaas.SCRAMLoginModule
+      flag: sufficient
+      properties:
+      - debug: false
+    - class_name: org.apache.activemq.artemis.spi.core.security.jaas.PropertiesLoginModule
+      flag: sufficient
+      properties:
+      - debug: false
+      - reload: true
+      - org.apache.activemq.jaas.properties.user: "artemis-users.properties"
+      - org.apache.activemq.jaas.properties.role: "artemis-roles.properties"
+  - name: amqp-sasl-scram
+    modules:
+    - class_name: org.apache.activemq.artemis.spi.core.security.jaas.SCRAMPropertiesLoginModule
+      flag: required
+      properties:
+      - debug: false
+      - org.apache.activemq.jaas.properties.user: "artemis-users.properties"
+      - org.apache.activemq.jaas.properties.role: "artemis-roles.properties"
