@@ -1,0 +1,56 @@
+{% include 'libs/headers/properties_headers.jinja2' %}
+
+# ---------------------------------------------------------------------------
+{% include 'libs/licenses/apache-2.0/properties.jinja2' %}
+# ---------------------------------------------------------------------------
+
+{% if artemis_profile.home is defined %}
+ARTEMIS_HOME='{{ artemis_profile.home }}'
+{% endif %}
+{% if artemis_profile.instance is defined %}
+ARTEMIS_INSTANCE='{{ artemis_profile.instance }}'
+{% endif %}
+{% if artemis_profile.data_dir is defined %}
+ARTEMIS_DATA_DIR='{{ artemis_profile.data_dir }}'
+{% endif %}
+{% if artemis_profile.etc_dir is defined %}
+ARTEMIS_ETC_DIR='{{ artemis_profile.etc_dir }}'
+{% endif %}
+{% if artemis_profile.oome_dump is defined %}
+ARTEMIS_OOME_DUMP='{{ artemis_profile.instance }}/log/oom_dump.hprof'
+{% endif %}
+
+{% if artemis_profile.instance_uri is defined or artemis_profile.instance_etc_uri is defined %}
+    {% if artemis_profile.instance_uri is defined %}
+ARTEMIS_INSTANCE_URI='{{ artemis_profile.instance_uri }}'
+    {% endif %}
+    {% if artemis_profile.instance_etc_uri is defined %}
+ARTEMIS_INSTANCE_ETC_URI='{{ artemis_profile.instance_etc_uri }}'
+    {% endif %}
+{% endif %}
+
+{% if artemis_profile.cluster_properties is defined %}
+# Cluster Properties: Used to pass arguments to ActiveMQ Artemis which can be referenced in broker.xml
+ARTEMIS_CLUSTER_PROPS="{{ artemis_profile.cluster_properties|join(' ') }}"
+{% endif %}
+
+{% if artemis_profile.hawtio_roles is defined %}
+HAWTIO_ROLE='{{ artemis_profile.hawtio_roles|join(',') }}'
+{% endif %}
+
+{% if artemis_profile.java_args is defined %}
+# Java Opts
+if [ -z "$JAVA_ARGS" ]; then
+    JAVA_ARGS="{{- artemis_profile.java_args|join(' ') }} "
+fi
+{% endif %}
+
+if [ "$1" = "run" ]; then :
+    {% if artemis_profile.debug_args is defined %}
+    DEBUG_ARGS="$DEBUG_ARGS {{ artemis_profile.debug_args|join(' ') }}"
+    {% endif %}
+    {% if artemis_profile.java_args_run is defined %}
+    JAVA_ARGS="$JAVA_ARGS {{ artemis_profile.java_args_run|join(' ') -}}"
+    {% endif %}
+fi
+
