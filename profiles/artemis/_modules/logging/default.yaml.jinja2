@@ -51,6 +51,9 @@ logging_properties:
   - org.apache.activemq.audit.message.level: '{{ log_level_audit_message|default(log_level_all)|default('ERROR') }}'
   - org.apache.activemq.audit.message.handlers: AUDIT_FILE
   - org.apache.activemq.audit.message.useParentHandlers: false
+  - org.apache.activemq.audit.resource.level: '{{ log_level_audit_resource|default(log_level_all)|default('ERROR') }}'
+  - org.apache.activemq.audit.resource.handlers: AUDIT_FILE
+  - org.apache.activemq.audit.resource.useParentHandlers: false
   handlers:
   - name: CONSOLE
     class_name: org.jboss.logmanager.handlers.ConsoleHandler
