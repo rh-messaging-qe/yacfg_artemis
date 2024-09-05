@@ -2,8 +2,10 @@
   - policy: replication
     role: primary
     properties:
+      {% if user_ha.properties.manager is defined %}
       manager:
         properties: {{ ha_manager_properties }}
+      {% endif %}
       cluster_name: {{ ha_cluster_name | default('artemis-cluster') }}
       group_name: {{ ha_group_name | default('artemis-cluster-group') }}
       initial_replication_sync_timeout: {{ ha_initial_replication_sync_timeout }}
