@@ -10,6 +10,7 @@ monitorInterval = {{ log4j2_utility_config.monitorInterval }}
 
 rootLogger = {{ log4j2_utility_config.rootLogger }}
 
+
 {%- for appender_key, appender in log4j2_utility_config.appender.items() -%}
 
   {% if "console" in appender_key -%}
