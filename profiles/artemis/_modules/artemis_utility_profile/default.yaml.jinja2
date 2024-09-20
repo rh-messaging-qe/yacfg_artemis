@@ -1,0 +1,19 @@
+# _defaults:
+#   broker_home: /opt/artemis-2.18.0
+#   broker_instance: /opt/artemis-2.18.0-i0/
+
+artemis_utility_profile:
+  home: '{{ broker_home }}'
+  instance: '{{ broker_instance }}'
+  data_dir: '{{ broker_instance }}/data'
+  etc_dir: '{{ broker_instance }}/etc'
+  oome_dump: '{{ broker_instance }}/log/oom_dump.hprof'
+  instance_uri: 'file:{{ broker_instance }}'
+  instance_etc_uri: 'file:{{ broker_instance }}/etc/'
+  
+  logging_args:
+    - -Dlog4j2.configurationFile=${ARTEMIS_INSTANCE_ETC_URI}log4j2-utility.properties
+  java_args:
+    - -Dlog4j2.disableJmx=true
+    - --add-opens java.base/jdk.internal.misc=ALL-UNNAMED 
+

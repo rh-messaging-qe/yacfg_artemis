@@ -80,6 +80,9 @@ broker_xml:
 # artemis.profile
 {% include 'artemis/_modules/artemis_profile/default_jmx.yaml.jinja2' %}
 
+# artemis-utility.profile
+{% include 'artemis/_modules/artemis_utility_profile/default.yaml.jinja2' %}
+
 # users and roles properties xml
 {% if use_scram is sameas true %}
   {% include 'artemis/_modules/users_roles_security/scram_users.yaml.jinja2' %}
@@ -95,6 +98,9 @@ broker_xml:
 
 # log4j2.properties
 {% include 'artemis/_modules/log4j2/default.yaml.jinja2' %}
+
+# log4j2-utility.properties
+{% include 'artemis/_modules/log4j2_utility/default.yaml.jinja2' %}
 
 # login.config
 {% if use_scram is sameas true %}
