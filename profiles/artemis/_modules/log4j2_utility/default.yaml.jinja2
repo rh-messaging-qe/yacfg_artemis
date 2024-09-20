@@ -1,0 +1,14 @@
+# _defaults:
+#  log_level_all: INFO x
+
+log4j2_utility_config:
+  monitorInterval: 5
+  rootLogger: '{{ log_level_root|default(log_level_all)|default('INFO') }}, console'
+  appender:
+    console:
+      type: Console
+      name: console
+      layout:
+        type: PatternLayout
+        pattern: "%d %-5level [%logger] %msg%n"
+

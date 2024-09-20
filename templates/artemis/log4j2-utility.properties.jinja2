@@ -1,0 +1,56 @@
+{% from 'libs/utils.jinja2' import mbool without context %}
+{% include 'libs/headers/properties_headers.jinja2' %}
+
+{% include 'libs/licenses/apache-2.0/properties.jinja2' %}
+
+# Log4J 2 configuration
+
+# Monitor config file every X seconds for updates
+monitorInterval = {{ log4j2_utility_config.monitorInterval }}
+
+rootLogger = {{ log4j2_utility_config.rootLogger }}
+
+{%- for appender_key, appender in log4j2_utility_config.appender.items() -%}
+
+  {% if "console" in appender_key -%}
+    # Console appender
+  {% elif "log_file" in appender_key -%}
+    # Log file appender
+  {% elif "audit_log" in appender_key -%}
+    # Audit log file appender
+  {%- endif -%}
+
+  {%- for sub_appender_key, sub_appender_value in appender.items() %}
+
+    {%- if sub_appender_value is mapping %}
+      {%- for sub_sub_appender_key, sub_sub_appender_value in sub_appender_value.items() -%}
+        {%- if sub_sub_appender_value is mapping %}
+          {%- for sub_sub_sub_appender_key, sub_sub_sub_appender_value in sub_sub_appender_value.items() -%}
+            {% if sub_sub_sub_appender_value is sameas true or value is sameas false%}
+              {% set value=mbool(sub_sub_sub_appender_value)%}
+            {% else%}
+              {% set value=sub_sub_sub_appender_value %}
+            {% endif -%}
+            appender.{{ appender_key }}.{{ sub_appender_key }}.{{ sub_sub_appender_key }}.{{ sub_sub_sub_appender_key }}={{ value }}
+          {% endfor %}
+        {% else -%}
+            {% if sub_sub_appender_value is sameas true or sub_sub_appender_value is sameas false%}
+              {% set val=mbool(sub_sub_appender_value)%}
+            {% else%}
+              {% set value=sub_sub_appender_value %}
+            {% endif -%}
+          appender.{{ appender_key }}.{{sub_appender_key}}.{{ sub_sub_appender_key }}={{ value }}
+        {% endif -%}
+      {% endfor %}
+    {% else -%}
+    {% if sub_appender_value is sameas true or sub_appender_value is sameas false%}
+      {% set value=mbool(sub_appender_value)%}
+    {% else%}
+      {% set value=sub_appender_value %}
+    {% endif -%}
+      appender.{{ appender_key }}.{{ sub_appender_key }}={{ value }}
+    {% endif -%}
+
+  {% endfor %}
+
+{% endfor %}
