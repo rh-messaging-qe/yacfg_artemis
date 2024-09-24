@@ -37,11 +37,10 @@ _defaults:
 render:
   generator_notice: true
   licenses: true
-  template: artemis/
+  template: artemis-2.36
 
 broker_xml:
   name: '{{ broker_name }}'
-  max_disk_usage: 95
 
 {% include 'artemis/_modules/broker_xml/journal/user_journal.yaml.jinja2' %}
 
