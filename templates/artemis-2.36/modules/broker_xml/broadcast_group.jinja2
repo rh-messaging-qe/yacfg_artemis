@@ -1,0 +1,36 @@
+{% if broker_xml.broadcast_groups is defined %}
+      <broadcast-groups>
+        {% for group in broker_xml.broadcast_groups %}
+         <broadcast-group name="{{ group.name }}">
+            {% if group.local_bind_address is defined and group.local_bind_address | length %}
+            <local-bind-address>{{ group.local_bind_address }}</local-bind-address>
+            {% endif %}
+            {% if group.local_bind_port is defined and group.local_bind_port | length %}
+            <local-bind-port>{{ group.local_bind_port }}</local-bind-port>
+            {% endif %}
+            {% if group.group_address is defined %}
+            <group-address>{{ group.group_address }}</group-address>
+            {% endif %}
+            {% if group.group_port is defined%}
+            <group-port>{{ group.group_port }}</group-port>
+            {% endif %}
+            {% if group.broadcast_period is defined%}
+            <broadcast-period>{{ group.broadcast_period }}</broadcast-period>
+            {% endif %}
+            {% if group.jgroups_file is defined %}
+            <jgroups-file>{{ group.jgroups_file  }}</jgroups-file>
+            {% endif %}
+            {% if group.jgroups_channel is defined %}
+            <jgroups-channel>{{ group.jgroups_channel }}</jgroups-channel>
+            {% endif %}
+            {% if group.connectors_ref is defined %}
+              {% for connector_ref in group.connectors_ref %}
+            <connector-ref>{{ connector_ref }}</connector-ref>
+              {% endfor %}
+            {% endif %}
+         </broadcast-group>
+        {% endfor %}
+      </broadcast-groups>
+
+{% endif %}
+

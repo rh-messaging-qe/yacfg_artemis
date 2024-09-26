@@ -32,6 +32,11 @@
   {% endif %}
   {% if user_ha.policy is defined and user_ha.policy == 'replication' %}
     - policy: replication
+    {% if user_ha.role is defined and user_ha.role == 'master' %}
+        {% include 'artemis/_modules/broker_xml/ha_policy/replication/master.yaml.jinja2' %}
+    {% elif user_ha.role == 'slave' %}
+        {% include 'artemis/_modules/broker_xml/ha_policy/replication/slave.yaml.jinja2' %}
+    {% endif %}
     {% if user_ha.role is defined and user_ha.role == 'primary' %}
       role: primary
       {% if user_ha.properties is defined %}
