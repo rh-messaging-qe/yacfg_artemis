@@ -71,7 +71,7 @@ log4j2_config:
       type: RollingFile
       name: log_file
       fileName: "${sys:artemis.instance}/log/artemis.log"
-      filePattern: "${sys:artemis.instance}/log/artemis.log.%d{yyyy-MM-dd}"
+      filePattern: '{{ log_filePattern|default("${sys:artemis.instance}/log/artemis.log.%d{yyyy-MM-dd}") }}'
       layout:
         type: "PatternLayout"
         pattern: "%d %-5level [%logger] %msg%n"
@@ -79,7 +79,7 @@ log4j2_config:
         type: "Policies"
         cron:
           type: "CronTriggeringPolicy"
-          schedule: "0 0 0 * * ?"
+          schedule: '{{ log_policies_cron_schedule|default('0 0 0 * * ?') }}'
           evaluateOnStartup: true
     audit_log_file:
       type: RollingFile
