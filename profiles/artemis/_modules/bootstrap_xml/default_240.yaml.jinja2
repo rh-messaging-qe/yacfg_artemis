@@ -1,3 +1,6 @@
+# _defaults:
+#   broker_instance: /opt/artemis-2.18.0-i0/
+
 bootstrap_xml:
   jaas_security:
     - domain: activemq
@@ -9,12 +12,10 @@ bootstrap_xml:
     rootRedirectLocation: '{% if bootstrap_xml_rootRedirectLocation is not defined %}console{% else %}{{ bootstrap_xml_rootRedirectLocation }}{% endif %}'
     apps:
       {% if bootstrap_apps is not defined %}
-      - url: 'activemq-branding'
-        war: 'activemq-branding.war'
-      - url: 'artemis-plugin'
-        war: 'artemis-plugin.war'
       - url: 'console'
         war: 'console.war'
+      - url: 'metrics'
+        war: 'metrics.war'
       {% else %}
       {{ bootstrap_apps }}
       {% endif %}

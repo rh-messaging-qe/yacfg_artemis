@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+{% from 'libs/utils.jinja2' import url without context %}
+{% include 'libs/headers/xml_header.jinja2' %}
+{% include 'libs/licenses/apache-2.0/xml.jinja2' %}
+
+<broker xmlns="http://activemq.apache.org/schema">
+
+{% for jaas in bootstrap_xml.jaas_security %}
+   <jaas-security domain="{{ jaas.domain }}"
+    {%- if jaas.certificate_domain is defined %}
+ certificate-domain="{{ jaas.certificate_domain}}"
+    {%- endif %}/>
+{%  endfor %}
+
+
+   <server configuration="{{ bootstrap_xml.server.configuration }}"/>
+
+   <web path="{{ bootstrap_xml.web.path }}" rootRedirectLocation="{{ bootstrap_xml.web.rootRedirectLocation }}">
+       {% for binding in bootstrap_xml.web.bindings %}
+       <binding
+           {% for attribute_key, attribute_value in  binding.items() %}
+               {% if attribute_key == 'uri' %}
+            uri="{{ attribute_value }}"
+               {% else %}
+            {{ attribute_key }}="{{ attribute_value }}"
+               {% endif %}
+           {% endfor %}
+       >
+       {% endfor %}
+
+       {% for app in bootstrap_xml.web.apps %}
+           {% if app.name is defined %}
+           <app name="{{ app.name }}" url="{{ app.url }}" war="{{ app.war }}"/>
+           {% else %}
+           <app url="{{ app.url }}" war="{{ app.war }}"/>
+           {% endif %}
+       {% endfor %}
+       </binding>
+   </web>
+
+
+</broker>
+
+

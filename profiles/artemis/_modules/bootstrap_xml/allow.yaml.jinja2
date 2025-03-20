@@ -4,9 +4,9 @@ bootstrap_xml:
   server:
     configuration: 'file:{% if ":" in broker_instance %}/{% endif %}{{ broker_instance }}/etc/broker.xml'
   web:
+    path: web
     bindings: {{ boostrap_xml_bindings}}
     rootRedirectLocation: '{% if bootstrap_xml_rootRedirectLocation is not defined %}console{% else %}{{ bootstrap_xml_rootRedirectLocation }}{% endif %}'
-    path: web
     apps:
       {% if bootstrap_apps is not defined %}
       - url: 'activemq-branding'

@@ -1,0 +1,86 @@
+{% from 'libs/utils.jinja2' import mbool without context %}
+{% include 'libs/headers/properties_headers.jinja2' %}
+
+{% include 'libs/licenses/apache-2.0/properties.jinja2' %}
+
+# Log4J 2 configuration
+
+# Monitor config file every X seconds for updates
+monitorInterval = {{ log4j2_config.monitorInterval }}
+
+rootLogger = {{ log4j2_config.rootLogger }}
+
+{% for logger_key, logger in log4j2_config.logger.items() %}
+  {%- if "critical_analyzer" in logger_key -%}
+    {%- set comment = 
+    '# CriticalAnalyzer: If you have issues with the CriticalAnalyzer, setting this to TRACE would give\n'
+    '# you extra troubleshooting info, but do not use TRACE regularly as it would incur extra CPU usage.' 
+    -%}
+   {{- comment}}
+  {% elif "audit_base" in logger_key -%}
+   # Audit loggers: to enable change levels from OFF to INFO
+  {% elif "jetty" in logger_key -%}
+    # Jetty logger levels
+  {% elif ("curator" or "zookeeper") in logger_key -%}
+    # Quorum related logger levels
+  {% endif -%}
+  {%- for key, value in logger.items() -%}
+    {% if value is sameas true or value is sameas false%}
+      {% set val=mbool(value)%}
+    {% else%}
+      {% set val=value %}
+    {% endif -%}
+    {% if "value" in key -%}
+      logger.{{ logger_key }}={{ val }}
+    {% else -%}
+      logger.{{ logger_key }}.{{ key }}={{ val }}
+    {% endif %}
+  {% endfor %}
+
+{% endfor -%}
+
+
+{%- for appender_key, appender in log4j2_config.appender.items() -%}
+
+  {% if "console" in appender_key -%}
+    # Console appender
+  {% elif "log_file" in appender_key -%}
+    # Log file appender
+  {% elif "audit_log" in appender_key -%}
+    # Audit log file appender
+  {%- endif -%}
+
+  {%- for sub_appender_key, sub_appender_value in appender.items() %}
+
+    {%- if sub_appender_value is mapping %}
+      {%- for sub_sub_appender_key, sub_sub_appender_value in sub_appender_value.items() -%}
+        {%- if sub_sub_appender_value is mapping %}
+          {%- for sub_sub_sub_appender_key, sub_sub_sub_appender_value in sub_sub_appender_value.items() -%}
+            {% if sub_sub_sub_appender_value is sameas true or value is sameas false%}
+              {% set value=mbool(sub_sub_sub_appender_value)%}
+            {% else%}
+              {% set value=sub_sub_sub_appender_value %}
+            {% endif -%}
+            appender.{{ appender_key }}.{{ sub_appender_key }}.{{ sub_sub_appender_key }}.{{ sub_sub_sub_appender_key }}={{ value }}
+          {% endfor %}
+        {% else -%}
+            {% if sub_sub_appender_value is sameas true or sub_sub_appender_value is sameas false%}
+              {% set val=mbool(sub_sub_appender_value)%}
+            {% else%}
+              {% set value=sub_sub_appender_value %}
+            {% endif -%}
+          appender.{{ appender_key }}.{{sub_appender_key}}.{{ sub_sub_appender_key }}={{ value }}
+        {% endif -%}
+      {% endfor %}
+    {% else -%}
+    {% if sub_appender_value is sameas true or sub_appender_value is sameas false%}
+      {% set value=mbool(sub_appender_value)%}
+    {% else%}
+      {% set value=sub_appender_value %}
+    {% endif -%}
+      appender.{{ appender_key }}.{{ sub_appender_key }}={{ value }}
+    {% endif -%}
+
+  {% endfor %}
+
+{% endfor %}

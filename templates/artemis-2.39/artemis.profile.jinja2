@@ -35,7 +35,7 @@ ARTEMIS_CLUSTER_PROPS="{{ artemis_profile.cluster_properties|join(' ') }}"
 {% endif %}
 
 {% if artemis_profile.hawtio_roles is defined %}
-HAWTIO_ROLES='{{ artemis_profile.hawtio_roles|join(',') }}'
+HAWTIO_ROLE='{{ artemis_profile.hawtio_roles|join(',') }}'
 {% endif %}
 
 {% if artemis_profile.java_args is defined %}
