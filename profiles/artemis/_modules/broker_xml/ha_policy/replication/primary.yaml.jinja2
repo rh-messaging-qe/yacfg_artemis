@@ -10,4 +10,5 @@
       group_name: {{ ha_group_name | default('artemis-cluster-group') }}
       initial_replication_sync_timeout: {{ ha_initial_replication_sync_timeout }}
       retry_replication_wait: {{ ha_retry_replication_wait }}
+      check_for_active_server: {{ ha_check_for_active_server | default('true') }}
 

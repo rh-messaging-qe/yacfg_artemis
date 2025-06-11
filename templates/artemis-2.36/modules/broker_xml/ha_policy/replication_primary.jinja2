@@ -18,6 +18,9 @@
                {% if policy.properties.max_saved_replicated_journals_size is defined %}
                <max-saved-replicated-journals-size>{{ policy.properties.max_saved_replicated_journals_size }}</max-saved-replicated-journals-size>
                {% endif %}
+               {% if policy.properties.check_for_active_server is defined %}
+               <check-for-active-server>{{ mbool(policy.properties.check_for_active_server) }}</check-for-active-server>
+               {% endif %}
                {% if policy.properties.manager is defined %}
                <manager>
                    {% if policy.properties.manager.class_name is defined %}
