@@ -14,8 +14,35 @@
         {% endif %}
       {% endif %}
     {% endif %}
+    {% if user_ha.role is defined and user_ha.role == 'primary' %}
+      role: primary
+      {% if user_ha.properties is defined %}
+      properties:
+        {% if user_ha.properties.failover_on_shutdown is defined %}
+        failover_on_shutdown: {{ user_ha.properties.failover_on_shutdown }}
+        {% endif %}
+        {% if user_ha.properties.wait_for_activation is defined %}
+        wait_for_activation: {{ user_ha.properties.wait_for_activation }}
+        {% endif %}
+      {% endif %}
+    {% endif %}
     {% if user_ha.role is defined and user_ha.role == 'slave' %}
       role: slave
+      {% if user_ha.properties is defined %}
+      properties:
+        {% if user_ha.properties.allow_failback is defined %}
+        allow_failback: {{ user_ha.properties.allow_failback }}
+        {% endif %}
+        {% if user_ha.properties.failover_on_shutdown is defined %}
+        failover_on_shutdown: {{ user_ha.properties.failover_on_shutdown }}
+        {% endif %}
+        {% if user_ha.properties.restart_backup is defined %}
+        restart_backup: {{ user_ha.properties.restart_backup }}
+        {% endif %}
+      {% endif %}
+    {% endif %}
+    {% if user_ha.role is defined and user_ha.role == 'backup' %}
+      role: backup
       {% if user_ha.properties is defined %}
       properties:
         {% if user_ha.properties.allow_failback is defined %}

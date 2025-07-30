@@ -3,8 +3,8 @@
             <shared-store/>
             {% else %}
             <shared-store>
-                {% include 'modules/broker_xml/ha_policy/shared_store_master.jinja2' %}
-                {% include 'modules/broker_xml/ha_policy/shared_store_slave.jinja2' %}
+                {% include 'modules/broker_xml/ha_policy/shared_store_primary.jinja2' %}
+                {% include 'modules/broker_xml/ha_policy/shared_store_backup.jinja2' %}
             </shared-store>
             {% endif %}
 {% endif %}

@@ -1,0 +1,14 @@
+        {% if policy.role == 'primary' %}
+            {% if policy.properties is not defined %}
+                <primary/>
+            {% else %}
+                <primary>
+                    {% if policy.properties.failover_on_shutdown is defined %}
+                    <failover-on-shutdown>{{ mbool(policy.properties.failover_on_shutdown) }}</failover-on-shutdown>
+                    {% endif %}
+                    {% if policy.properties.wait_for_activation is defined %}
+                    <wait-for-activation>{{ mbool(policy.properties.wait_for_activation) }}</wait-for-activation>
+                    {% endif %}
+                </primary>
+            {% endif %}
+        {% endif %}
