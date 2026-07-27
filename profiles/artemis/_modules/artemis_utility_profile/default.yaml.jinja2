@@ -13,7 +13,14 @@ artemis_utility_profile:
   
   logging_args:
     - -Dlog4j2.configurationFile=${ARTEMIS_INSTANCE_ETC_URI}log4j2-utility.properties
+
   java_args:
+  {% if artemis_utility_profile_java_args is defined %}
+    {% for arg in artemis_utility_profile_java_args %}
+    - '{{ arg }}'
+    {% endfor %}
+  {% else %}
     - -Dlog4j2.disableJmx=true
-    - --add-opens java.base/jdk.internal.misc=ALL-UNNAMED 
+    - --add-opens java.base/jdk.internal.misc=ALL-UNNAMED
+  {% endif %}
 
