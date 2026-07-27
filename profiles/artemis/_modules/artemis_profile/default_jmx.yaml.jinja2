@@ -8,7 +8,13 @@ artemis_profile:
   instance_etc_uri: 'file:{{ broker_instance }}/etc/'
   hawtio_roles:
     - 'amq'
+
   java_args:
+  {% if artemis_profile_java_args is defined %}
+    {% for arg in artemis_profile_java_args %}
+    - '{{ arg }}'
+    {% endfor %}
+  {% else %}
     - -XX:AutoBoxCacheMax=20000
     - -XX:+PrintClassHistogram
     - -XX:+UseG1GC
@@ -21,6 +27,8 @@ artemis_profile:
     - -Dhawtio.rolePrincipalClasses=org.apache.activemq.artemis.spi.core.security.jaas.RolePrincipal
     - -Dhawtio.http.strictTransportSecurity=max-age=31536000;includeSubDomains;preload
     - -Djolokia.policyLocation=${ARTEMIS_INSTANCE_ETC_URI}jolokia-access.xml
+  {% endif %}
+
   java_args_run:
     - -Dcom.sun.management.jmxremote.rmi.port=1099
     - -Dcom.sun.management.jmxremote.local.only=false
